@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{0A65FAB1-89E8-4EE6-8348-998DD8E33401}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{D762E08D-A2D5-4AE7-BEEA-0B156EBB2152}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".PublishScripts", ".PublishScripts", "{D762E08D-A2D5-4AE7-BEEA-0B156EBB2152}"
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
 		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
@@ -15,6 +15,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configura
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\Configurations\Server-WAWS-dev.json = PublishScripts\Configurations\Server-WAWS-dev.json
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F96E7BFE-235E-4D9F-8919-975A587C7246}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4FB53225-8BB7-4178-A8F3-23D66FAC98A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Module", "Core\Services.Module\Services.Module.csproj", "{EF9477A2-3FEA-46B6-B815-75161AD9EB7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Core\Services\Services.csproj", "{F2D70F0F-868B-4C6D-818A-1C1B26456D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Contracts", "Core\Services.Contracts\Services.Contracts.csproj", "{9E615D8B-D806-4798-8D3B-0A6121E5A000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,11 +36,26 @@ Global
 		{0A65FAB1-89E8-4EE6-8348-998DD8E33401}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A65FAB1-89E8-4EE6-8348-998DD8E33401}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A65FAB1-89E8-4EE6-8348-998DD8E33401}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF9477A2-3FEA-46B6-B815-75161AD9EB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF9477A2-3FEA-46B6-B815-75161AD9EB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF9477A2-3FEA-46B6-B815-75161AD9EB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF9477A2-3FEA-46B6-B815-75161AD9EB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2D70F0F-868B-4C6D-818A-1C1B26456D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2D70F0F-868B-4C6D-818A-1C1B26456D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2D70F0F-868B-4C6D-818A-1C1B26456D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2D70F0F-868B-4C6D-818A-1C1B26456D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E615D8B-D806-4798-8D3B-0A6121E5A000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E615D8B-D806-4798-8D3B-0A6121E5A000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E615D8B-D806-4798-8D3B-0A6121E5A000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E615D8B-D806-4798-8D3B-0A6121E5A000}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A1902B86-B99E-4083-99BF-FA20F7A19523} = {D762E08D-A2D5-4AE7-BEEA-0B156EBB2152}
+		{EF9477A2-3FEA-46B6-B815-75161AD9EB7C} = {4FB53225-8BB7-4178-A8F3-23D66FAC98A5}
+		{F2D70F0F-868B-4C6D-818A-1C1B26456D77} = {4FB53225-8BB7-4178-A8F3-23D66FAC98A5}
+		{9E615D8B-D806-4798-8D3B-0A6121E5A000} = {4FB53225-8BB7-4178-A8F3-23D66FAC98A5}
 	EndGlobalSection
 EndGlobal
