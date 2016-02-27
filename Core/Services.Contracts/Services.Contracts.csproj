@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IEksiFeedService.cs" />
-    <Compile Include="Models\TitleModel.cs" />
+    <Compile Include="Models\BaseTitleModel.cs" />
+    <Compile Include="Models\DebeTitleModel.cs" />
+    <Compile Include="Models\PopulerTitleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

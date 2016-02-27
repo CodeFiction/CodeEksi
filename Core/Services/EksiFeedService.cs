@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Server.Services
 {
     public class EksiFeedService : IEksiFeedService
     {
-        public async Task<IList<TitleModel>> GetDebeList()
+        public async Task<IList<DebeTitleModel>> GetDebeList()
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -35,18 +36,22 @@ namespace Server.Services
 
                     HtmlNodeCollection titleNodes = debeDocument.DocumentNode.ChildNodes["ol"].SelectNodes("li");
 
-                    IList<TitleModel> titleModels = new List<TitleModel>();
+                    IList<DebeTitleModel> titleModels = new List<DebeTitleModel>();
 
                     foreach (HtmlNode titleNode in titleNodes)
                     {
-                        TitleModel titleModel = new TitleModel();
+                        DebeTitleModel titleModel = new DebeTitleModel();
 
                         HtmlNode aElement = titleNode.SelectNodes("a")[0];
                         string link = aElement.Attributes["href"].Value;
                         string title = aElement.SelectNodes("span")[0].InnerText;
 
+                        string decodedUrl = WebUtility.UrlDecode(link);
+                        string entryId = $"#{decodedUrl.Split('#')[1]}";
+
                         titleModel.Link = link;
                         titleModel.Title = title;
+                        titleModel.EntryId = entryId;
 
                         titleModels.Add(titleModel);
                     }
@@ -56,7 +61,7 @@ namespace Server.Services
             }
         }
 
-        public async Task<IList<TitleModel>> GetPopulerList()
+        public async Task<IList<PopulerTitleModel>> GetPopulerList()
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -87,11 +92,11 @@ namespace Server.Services
                         .SelectNodes("li");
 
 
-                    IList<TitleModel> titleModels = new List<TitleModel>();
+                    IList<PopulerTitleModel> titleModels = new List<PopulerTitleModel>();
 
                     foreach (HtmlNode titleNode in titleNodes)
                     {
-                        TitleModel titleModel = new TitleModel();
+                        PopulerTitleModel titleModel = new PopulerTitleModel();
 
                         HtmlNode aElement = titleNode.SelectNodes("a")[0];
                         string link = aElement.Attributes["href"].Value;

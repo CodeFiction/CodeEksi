@@ -6,7 +6,7 @@ namespace Services.Contracts
 {
     public interface IEksiFeedService
     {
-        Task<IList<TitleModel>> GetDebeList();
-        Task<IList<TitleModel>> GetPopulerList();
+        Task<IList<DebeTitleModel>> GetDebeList();
+        Task<IList<PopulerTitleModel>> GetPopulerList();
     }
 }

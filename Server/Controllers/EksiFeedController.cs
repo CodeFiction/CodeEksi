@@ -23,15 +23,15 @@ namespace Server.Controllers
             _eksiFeedService = eksiFeedService;
         }
 
-        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<TitleModel>))]
+        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<DebeTitleModel>))]
         public async Task<IHttpActionResult> GetDebeList()
         {
-            IList<TitleModel> titleModels = await _eksiFeedService.GetDebeList();
+            IList<DebeTitleModel> titleModels = await _eksiFeedService.GetDebeList();
 
             return Ok(titleModels);
         }
 
-        [Route("populer"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<TitleModel>))]
+        [Route("populer"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<PopulerTitleModel>))]
         public async Task<IHttpActionResult> GetPopulerList(int? page = null)
         {
             if (page.HasValue && page.Value <= 0)
@@ -39,7 +39,7 @@ namespace Server.Controllers
                 return BadRequest();
             }
 
-            IList<TitleModel> titleModels = await _eksiFeedService.GetPopulerList();
+            IList<PopulerTitleModel> titleModels = await _eksiFeedService.GetPopulerList();
 
             return Ok(titleModels);
         }
