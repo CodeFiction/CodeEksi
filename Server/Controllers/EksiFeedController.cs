@@ -32,9 +32,9 @@ namespace Server.Controllers
         }
 
         [Route("populer"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<TitleModel>))]
-        public async Task<IHttpActionResult> GetPopulerList([FromUri]int page)
+        public async Task<IHttpActionResult> GetPopulerList(int? page = null)
         {
-            if (page <= 0)
+            if (page.HasValue && page.Value <= 0)
             {
                 return BadRequest();
             }
