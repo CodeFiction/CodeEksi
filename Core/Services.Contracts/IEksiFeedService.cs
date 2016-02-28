@@ -8,5 +8,6 @@ namespace Services.Contracts
     {
         Task<IList<DebeTitleModel>> GetDebeList();
         Task<IList<PopulerTitleModel>> GetPopulerList();
+        Task<EntryDetailModel> GetEntryById(string entryId);
     }
 }

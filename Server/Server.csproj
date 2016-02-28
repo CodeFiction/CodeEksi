@@ -169,6 +169,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\codesozluk.pubxml" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -206,6 +207,9 @@
       <Project>{ef9477a2-3fea-46b6-b815-75161ad9eb7c}</Project>
       <Name>Services.Module</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

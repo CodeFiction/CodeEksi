@@ -39,5 +39,13 @@ namespace Server.Controllers
 
             return Ok(titleModels);
         }
+
+        [Route("detail"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof(EntryDetailModel))]
+        public async Task<IHttpActionResult> GetEntryDetail(string entryId)
+        {
+            var content = await _eksiFeedService.GetEntryById(entryId);
+
+            return Ok(content);
+        }
     }
 }

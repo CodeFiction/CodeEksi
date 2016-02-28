@@ -44,6 +44,7 @@
     <Compile Include="IEksiFeedService.cs" />
     <Compile Include="Models\BaseTitleModel.cs" />
     <Compile Include="Models\DebeTitleModel.cs" />
+    <Compile Include="Models\EntryDetailModel.cs" />
     <Compile Include="Models\PopulerTitleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

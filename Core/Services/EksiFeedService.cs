@@ -120,5 +120,10 @@ namespace Server.Services
                 }
             }
         }
+
+        public async Task<EntryDetailModel> GetEntryById(string entryId)
+        {
+            return null;
+        }
     }
 }
