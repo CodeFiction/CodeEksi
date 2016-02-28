@@ -2,6 +2,9 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Services.Module.Base;
@@ -22,10 +25,15 @@ namespace Server
             HttpConfiguration config = GlobalConfiguration.Configuration;
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            SwaggerConfig.Register();            
+
+            SwaggerConfig.Register();
 
             builder.RegisterApiControllers(GetWebEntryAssembly()).InstancePerDependency();
             builder.RegisterWebApiFilterProvider(config);
+
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
 
         public override void OnPreLoad()

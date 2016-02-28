@@ -1,3 +1,9 @@
 ﻿<div ng-controller="home">
     {{mm}}
+
+    <ul>
+        <li ng-repeat="entry in entries">
+            <span attr="{{entry.entry_id}}"><a href="#" ng-click="redirect(entry.link)">{{entry.title}}</a></span>
+        </li>
+    </ul>
 </div>
