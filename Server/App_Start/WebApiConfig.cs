@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Web;
+﻿using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace Server.App_Start
+namespace Server
 {
     public static class WebApiConfig
     {
