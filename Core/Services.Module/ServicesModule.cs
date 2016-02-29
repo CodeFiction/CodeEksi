@@ -19,7 +19,7 @@ namespace Services.Module
 
         public override void OnLoad(ContainerBuilder builder)
         {
-            builder.RegisterType<EksiFeedService>().As<IEksiFeedService>().InstancePerDependency();
+            builder.RegisterType<EskiFeedService2>().As<IEksiFeedService>().InstancePerDependency();
         }
 
         public override void OnPreLoad()

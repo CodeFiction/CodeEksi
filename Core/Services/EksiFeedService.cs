@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Network;
+using AngleSharp.Network.Default;
+using AngleSharp.Services.Default;
 using HtmlAgilityPack;
 using Server.Services.Helpers;
 using Services.Contracts;
 using Services.Contracts.Models;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace Server.Services
 {
@@ -112,6 +118,38 @@ namespace Server.Services
                 }
 
                 );
+        }
+    }
+
+    public class EskiFeedService2 : IEksiFeedService
+    {
+        public async Task<IList<DebeTitleModel>> GetDebeList()
+        {
+            // IConfiguration withDefaultLoader = Configuration.Default.WithDefaultLoader();
+            string formattableString = $"https://eksisozluk.com/debe?_={DateTime.Now.Ticks}";
+
+            HttpRequester httpRequester = new HttpRequester();
+            Request request = new Request();
+            request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            request.Address = Url.Create(formattableString);
+            IResponse response = await httpRequester.RequestAsync(request, CancellationToken.None);
+            IDocument document = await BrowsingContext.New().OpenAsync(response, CancellationToken.None);
+
+            string selector = "ol.stats.topic-list.partial > li > a";
+
+            IHtmlCollection<IElement> querySelectorAll = document.QuerySelectorAll(selector);
+
+            return null;
+        }
+
+        public Task<IList<PopulerTitleModel>> GetPopulerList()
+        {
+            return null;
+        }
+
+        public Task<EntryDetailModel> GetEntryById(string entryId)
+        {
+            return null;
         }
     }
 }
