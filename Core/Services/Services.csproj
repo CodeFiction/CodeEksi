@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingComponent.cs" />
     <Compile Include="EksiFeedService.cs" />
     <Compile Include="Helpers\HtmlParser.cs" />
+    <Compile Include="ModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

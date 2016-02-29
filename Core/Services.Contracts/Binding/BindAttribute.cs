@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace Services.Contracts.Binding
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
-    public class Bind : Attribute
+    public class BindAttribute : Attribute
     {
-        private readonly string _cssSelector;
-
-        public Bind(string cssSelector)
+        public BindAttribute(string cssSelector)
         {
-            _cssSelector = cssSelector;
+            CssSelector = cssSelector;
         }
+
+
+        public string CssSelector { get; }
 
         public string AttributeName { get; set; }
 

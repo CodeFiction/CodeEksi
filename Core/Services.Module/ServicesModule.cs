@@ -19,7 +19,16 @@ namespace Services.Module
 
         public override void OnLoad(ContainerBuilder builder)
         {
-            builder.RegisterType<EskiFeedService2>().As<IEksiFeedService>().InstancePerDependency();
+            builder.RegisterType<EskiFeedService>().As<IEksiFeedService>().InstancePerDependency();
+            builder.RegisterType<BindingComponent>().As<IBindingComponent>().InstancePerDependency();
+            builder.RegisterType<ModelBinder>().As<IModelBinder>().InstancePerDependency();
+
+            builder.Register<Func<IModelBinder>>(context =>
+            {
+                IComponentContext componentContext = context.Resolve<IComponentContext>(); ;
+
+                return () => componentContext.Resolve<IModelBinder>();
+            });
         }
 
         public override void OnPreLoad()

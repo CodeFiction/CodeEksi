@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding\Bind.cs" />
+    <Compile Include="Binding\BindAttribute.cs" />
     <Compile Include="Binding\BindingSource.cs" />
+    <Compile Include="IBindingComponent.cs" />
     <Compile Include="IEksiFeedService.cs" />
+    <Compile Include="IModelBinder.cs" />
+    <Compile Include="IWith.cs" />
     <Compile Include="Models\DebeTitleModel.cs" />
     <Compile Include="Models\EntryDetailModel.cs" />
     <Compile Include="Models\PopulerTitleModel.cs" />
