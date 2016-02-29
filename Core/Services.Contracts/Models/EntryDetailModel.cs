@@ -8,15 +8,13 @@ namespace Services.Contracts.Models
         [DataMember(Name = "entry_id")]
         public string EntryId { get; set; }
 
-        [DataMember(Name = "entry_content")]
+        [DataMember(Name = "content")]
         public string Content { get; set; }
 
-        [DataMember(Name = "entry_date")]
+        [DataMember(Name = "date")]
         public string EntryDate { get; set; }
 
-        [DataMember(Name = "entry_writer")]
-        public string EntryWriter { get; set; }
-
-
+        [DataMember(Name = "author")]
+        public string EntryAuthor { get; set; }
     }
 }

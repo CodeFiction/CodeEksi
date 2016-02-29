@@ -1,9 +1,10 @@
 ﻿<div ng-controller="home">
     {{mm}}
-
+    <div ng-show="loading">Loading...</div>
     <ul>
         <li ng-repeat="entry in entries">
-            <span attr="{{entry.entry_id}}"><a href="#" ng-click="redirect(entry.link)">{{entry.title}}</a></span>
+            <span attr="{{entry.entry_id}}"><a href="#" ng-click="openEntry(entry.entry_id, entry)">{{entry.title}}</a></span>
+            <div ng-show="entry.content"> {{entry.content.content}} <br/> {{entry.content.author}}</div>
         </li>
     </ul>
 </div>

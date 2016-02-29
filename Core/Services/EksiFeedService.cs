@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using Server.Services.Helpers;
 using Services.Contracts;
 using Services.Contracts.Models;
 
@@ -16,26 +17,11 @@ namespace Server.Services
     {
         public async Task<IList<DebeTitleModel>> GetDebeList()
         {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var requestUri = $"https://eksisozluk.com/debe?_={DateTime.Now.Ticks}";
-                var request = new HttpRequestMessage()
+            return await HtmlParser.Parse(
+                $"https://eksisozluk.com/debe?_={DateTime.Now.Ticks}", HttpMethod.Get,
+                debeDocument => debeDocument.ChildNodes["ol"].SelectNodes("li"),
+                titleNodes =>
                 {
-                    RequestUri = new Uri(requestUri),
-                    Method = HttpMethod.Get,
-                };
-
-                request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-
-                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request))
-                {
-                    Stream stream = await httpResponseMessage.Content.ReadAsStreamAsync();
-
-                    HtmlDocument debeDocument = new HtmlDocument();
-                    debeDocument.Load(stream, Encoding.UTF8, true);
-
-                    HtmlNodeCollection titleNodes = debeDocument.DocumentNode.ChildNodes["ol"].SelectNodes("li");
-
                     IList<DebeTitleModel> titleModels = new List<DebeTitleModel>();
 
                     foreach (HtmlNode titleNode in titleNodes)
@@ -58,31 +44,16 @@ namespace Server.Services
 
                     return titleModels;
                 }
-            }
+                );
         }
 
         public async Task<IList<PopulerTitleModel>> GetPopulerList()
         {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var requestUri = $"https://eksisozluk.com/basliklar/populer?={DateTime.Now.Ticks}";
-
-                var request = new HttpRequestMessage()
+            return await HtmlParser.Parse(
+                $"https://eksisozluk.com/basliklar/populer?={DateTime.Now.Ticks}", HttpMethod.Get,
+                debeDocument =>
                 {
-                    RequestUri = new Uri(requestUri),
-                    Method = HttpMethod.Get,
-                };
-
-                request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-
-                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request))
-                {
-                    Stream stream = await httpResponseMessage.Content.ReadAsStreamAsync();
-
-                    HtmlDocument debeDocument = new HtmlDocument();
-                    debeDocument.Load(stream, Encoding.UTF8, true);
-
-                    var titleNodes = debeDocument.DocumentNode
+                    return debeDocument
                         .SelectNodes("ul")
                         .AsQueryable()
                         .First(
@@ -90,8 +61,9 @@ namespace Server.Services
                                 node.Attributes.Contains("class") &&
                                 node.Attributes["class"].Value == "topic-list partial")
                         .SelectNodes("li");
-
-
+                },
+                titleNodes =>
+                {
                     IList<PopulerTitleModel> titleModels = new List<PopulerTitleModel>();
 
                     foreach (HtmlNode titleNode in titleNodes)
@@ -118,12 +90,28 @@ namespace Server.Services
 
                     return titleModels;
                 }
-            }
+                );
         }
 
         public async Task<EntryDetailModel> GetEntryById(string entryId)
         {
-            return null;
+            return await HtmlParser.Parse(
+                $"https://eksisozluk.com/entry/{entryId}", HttpMethod.Get,
+                content => content.SelectNodes($"//li[@data-id={entryId}]"),
+                content =>
+                {
+                    var c = content.FirstOrDefault();
+                    if (c == null) { return new EntryDetailModel(); }
+                    return new EntryDetailModel
+                    {
+                        EntryAuthor = c.GetAttributeValue("data-author", "anynomous"),
+                        Content = c.SelectSingleNode("div").InnerHtml,
+                        EntryDate = c.SelectSingleNode("footer").SelectSingleNode("div/a").InnerText,
+                        EntryId = entryId
+                    };
+                }
+
+                );
         }
     }
 }
