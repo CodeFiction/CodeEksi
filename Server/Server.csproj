@@ -159,6 +159,9 @@
     <Compile Include="ServerModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\main.css" />
+    <Content Include="Content\normalize.css" />
+    <Content Include="Content\normalize.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -170,6 +173,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Content\main.less" />
     <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\codesozluk.pubxml" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

@@ -1,0 +1,125 @@
+
+@monokai-bg: #272822;
+@monokai-pink: #fc1e6d;
+@monokai-yellow: #e6dd64;
+@monokai-grey: #75715c;
+@monokai-green: #a2e600;
+@monokai-blue: #50d0ed;
+@monokai-white: #f8f8f2;
+@monokai-orange: #ff9900;
+@monokai-purple: #b079f8;
+
+@mellow-contrast-bg: #070606;
+@mellow-contrast-gold: #977447;
+@mellow-contrast-white: #989895;
+@mellow-contrast-comment: #47413B;
+@mellow-contrast-aquamarine: #105151;
+@mellow-contrast-red: #9C3A4B;
+@mellow-contrast-yellow: #9B7517;
+
+@legacy-bg: #0D1014;
+@legacy-comment: #1D2732;
+@legacy-dark-blue: #144F72;
+@legacy-white: #A0A0A0;
+@legacy-light-blue:#6D798D;
+@legacy-half-blue: #2F4154
+@legacy-yellow: #A17100;
+@legacy-red: #A22700;
+@legacy-parenthesis: #6C7A8D;
+@legacy-operators: #3D4A5A;
+
+@font-face {
+    font-family: 'Menlo Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+}
+
+html {
+    color: @monokai-white;
+    font-size: 1em;
+    line-height: 1.4;
+    font-family: monospace; 
+}
+
+::selection {
+    text-shadow: none;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+body,
+pre {
+    margin: 0
+}
+
+pre {
+    padding: 0
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+a.snippet-wrapper:focus,
+a.snippet-wrapper:visited,
+a.snippet-wrapper:active,
+a.snippet-wrapper:hover {
+    text-decoration: none;
+    .highlighted {
+        text-decoration: underline;
+    }
+}
+
+/*===========================================*/
+/*   Theme: Monokai   
+/*===========================================*/
+
+
+body.theme-monokai {
+    font: 14px/18px 'Menlo Regular', monospace;
+    ::selection {
+        background: #999; 
+    }
+    background: @monokai-bg;
+    .html-symbol {
+        color: @monokai-white;
+    }
+    .html-tag {
+        color: @monokai-pink;
+        font-weight: 700;
+    }
+    .html-data {
+        color: @monokai-green;
+    }
+    .html-string {
+        color: @monokai-yellow;
+    }
+    .html-content {
+        color: @monokai-white;
+    }
+    .html-comment {
+        color: @monokai-grey;
+    }
+    .html-paragraph {
+        color: @monokai-white
+    }
+}
+
+
+
+
