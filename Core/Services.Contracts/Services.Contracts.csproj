@@ -43,13 +43,21 @@
   <ItemGroup>
     <Compile Include="Binding\BindAttribute.cs" />
     <Compile Include="Binding\BindingSource.cs" />
+    <Compile Include="Binding\BindModelAttribute.cs" />
+    <Compile Include="Exceptions\GenericHttpException.cs" />
+    <Compile Include="Exceptions\InternalServerErrorException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="IBindingComponent.cs" />
     <Compile Include="IEksiFeedService.cs" />
     <Compile Include="IModelBinder.cs" />
     <Compile Include="IWith.cs" />
     <Compile Include="Models\DebeTitleModel.cs" />
     <Compile Include="Models\EntryDetailModel.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\PopulerModel.cs" />
     <Compile Include="Models\PopulerTitleModel.cs" />
+    <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\SuggestedTitle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
