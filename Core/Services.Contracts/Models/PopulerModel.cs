@@ -22,6 +22,6 @@ namespace Services.Contracts.Models
 
         [BindModel]
         [DataMember(Name = "populer_title_models")] 
-        public IList<PopulerTitleModel> PopulerTitleModels { get; set; }
+        public IList<PopulerTitleHeaderModel> PopulerTitleHeaderModels { get; set; }
     }
 }

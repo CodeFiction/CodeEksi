@@ -114,7 +114,25 @@ namespace Server.Services
             }
         }
 
+        public IEnumerable<TModel> BindModelHtmlContent<TModel>(string htmlContent, Action<TModel> postBindAction = null)
+            where TModel : class, new()
+        {
+            HtmlParser htmlParser = new HtmlParser();
+            IHtmlDocument htmlDocument = htmlParser.Parse(htmlContent);
+
+            return BindModelWithHtmlDocument(htmlDocument, postBindAction);
+        }
+
         public IEnumerable<TModel> BindModelWithStream<TModel>(Stream stream, Action<TModel> postBindAction = null)
+            where TModel : class, new()
+        {
+            HtmlParser htmlParser = new HtmlParser();
+            IHtmlDocument htmlDocument = htmlParser.Parse(stream);
+
+            return BindModelWithHtmlDocument<TModel>(htmlDocument, postBindAction);
+        }
+
+        private IEnumerable<TModel> BindModelWithHtmlDocument<TModel>(IHtmlDocument htmlDocument, Action<TModel> postBindAction = null)
             where TModel : class, new()
         {
             Type modelType = typeof (TModel);
@@ -123,11 +141,17 @@ namespace Server.Services
 
             if (bindAttribute == null)
             {
-                // throw Exception
+                throw new BindAttributeNotFoundException($"BindAttribute not found for model {modelType.FullName}");
             }
 
             // TODO : @deniz bunu genel bir yere taþýmak lazým. Birden fazla parametre olan durumlarda olucak
             string cssSelector = bindAttribute.CssSelector;
+
+            if (string.IsNullOrEmpty(cssSelector))
+            {
+                throw new CssSelectorNotFoundException($"BindAttribute not found for model {modelType.FullName}");
+            }
+
             if (CssSelectorParameters.Any(pair => cssSelector.Contains($"{{{pair.Key}}}")))
             {
                 string key = Regex.Match(cssSelector, @"\{([^}]*)\}").Groups[1].ToString();
@@ -135,14 +159,6 @@ namespace Server.Services
 
                 cssSelector = cssSelector.Replace($"{{{key}}}", value);
             }
-
-            if (string.IsNullOrEmpty(cssSelector))
-            {
-                // throw Exception
-            }
-
-            HtmlParser htmlParser = new HtmlParser();
-            IHtmlDocument htmlDocument = htmlParser.Parse(stream);
 
             IHtmlCollection<IElement> querySelectorAll = htmlDocument.QuerySelectorAll(cssSelector);
 

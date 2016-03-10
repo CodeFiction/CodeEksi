@@ -11,7 +11,8 @@ namespace Server.Controllers
 {
     [ExceptionHandlingFilter]
     [SwaggerResponse(HttpStatusCode.NotFound, Type = typeof (ErrorModel)),
-     SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof (ErrorModel))]
+     SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof (ErrorModel)),
+     SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ErrorModel))]
     [RoutePrefix("v1/eksifeed")]
     public class EksiFeedController : ApiController
     {
@@ -22,10 +23,10 @@ namespace Server.Controllers
             _eksiFeedService = eksiFeedService;
         }
 
-        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof (IList<DebeTitleModel>))]
+        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof (IList<DebeTitleHeaderModel>))]
         public async Task<IHttpActionResult> GetDebeList()
         {
-            IList<DebeTitleModel> titleModels = await _eksiFeedService.GetDebeList();
+            IList<DebeTitleHeaderModel> titleModels = await _eksiFeedService.GetDebeList();
 
             return Ok(titleModels);
         }
@@ -51,19 +52,28 @@ namespace Server.Controllers
             return Ok(content);
         }
 
-        [Route("entries/search"), HttpGet, 
-            SwaggerResponse(HttpStatusCode.OK, Type = typeof(IList<EntryDetailModel>)),
-            SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(IList<SuggestedTitle>))]
-        public async Task<IHttpActionResult> Search(string titleText)
+        [Route("titles/search"), HttpGet, 
+            SwaggerResponse(HttpStatusCode.OK, Type = typeof(TitleModel)),
+            SwaggerResponse(HttpStatusCode.NotFound, Type = typeof(IList<SuggestedTitleModel>))]
+        public async Task<IHttpActionResult> SearchTitle(string titleText)
         {
-            var content = await _eksiFeedService.Search(titleText);
+            var content = await _eksiFeedService.SearchTitle(titleText);
 
             if (content.Result)
             {
-                return Ok(content.EntryDetailModels);
+                return Ok(content.TitleModel);
             }
 
-            return new NotFoundWithContent<IList<SuggestedTitle>> (Request, content.SuggestedTitles);
+            return new NotFoundWithContent<IList<SuggestedTitleModel>> (Request, content.SuggestedTitleModels);
+        }
+
+        [Route("titles/{titleNameIdText}"), HttpGet,
+         SwaggerResponse(HttpStatusCode.OK, Type = typeof (TitleModel))]
+        public async Task<IHttpActionResult> GetTitle(string titleNameIdText, bool? populer = null, int? page = null)
+        {
+            var content = await _eksiFeedService.GetTitle(titleNameIdText, populer, page);
+
+            return Ok(content);
         }
     }
 }
