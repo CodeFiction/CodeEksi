@@ -5,13 +5,13 @@
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
             "popular": "popular",
-            "detail": "detail"
+            "entries": "entries"
         })
         .controller("home", function ($scope, $http, $window, apiConfig) {
             $scope.mm = "Working!";
             $scope.entries = [];
             $scope.openEntry = function (id, entry) {
-                $http.get(apiConfig.baseUrl + apiConfig.detail + "/" + id.substr(1)).success(function (result) {
+                $http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id.substr(1)).success(function (result) {
                     entry.content = result;
                 });
             }
