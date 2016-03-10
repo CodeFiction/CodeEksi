@@ -4,9 +4,11 @@ using Services.Contracts.Binding;
 namespace Services.Contracts.Models
 {
     [DataContract]
-    [Bind("li[data-id={entryId}]")]
+    // [Bind("li[data-id={entryId}]")]
+    [Bind("ul#entry-list > li")]
     public class EntryDetailModel
     {
+        [Bind(null, AttributeName = "data-id")]
         [DataMember(Name = "entry_id")]
         public string EntryId { get; set; }
 

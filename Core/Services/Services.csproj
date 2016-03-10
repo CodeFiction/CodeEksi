@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +53,7 @@
     <Compile Include="BindingComponent.cs" />
     <Compile Include="EksiFeedService.cs" />
     <Compile Include="Helpers\HtmlParser.cs" />
+    <Compile Include="Helpers\UriExtensions.cs" />
     <Compile Include="ModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
