@@ -15,7 +15,7 @@
     @Scripts.Render("~/bundles/angular")
     @Styles.Render("~/Content/css")
 </head>
-<body class="theme-monokai">
+<body class="theme-monokai" ng-class="{'theme-monokai': !okay, 'theme-chrome':okay}">
     <div id="sidebar">
         <ul></ul>
     </div>
@@ -52,7 +52,13 @@
                     </li>
                     <!-- <link rel="stylesheet" href="css/themes.css"> -->
                     <li>
-                        <span class="html-symbol">&lt;</span><span class="html-tag">link</span><span class="html-data"> rel</span><span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span><span class="html-data"> href</span><span class="html-symbol">=</span><a id="btn-theme" class="html-string shuffleme">"css/themes.css"</a><span class="html-symbol">&gt;</span>
+                        <span class="html-symbol">&lt;</span>
+                        <span class="html-tag">link</span>
+                        <span class="html-data"> rel</span>
+                        <span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span>
+                        <span class="html-data"> href</span><span class="html-symbol">=</span>
+                        <a id="btn-theme" class="html-string shuffleme" ng-click="okay = !okay">"css/themes.css"</a>
+                        <span class="html-symbol">&gt;</span>
                     </li>
                     <!-- <link rel="stylesheet" href="css/language.css"> -->
                     <li>
