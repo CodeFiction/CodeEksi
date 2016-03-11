@@ -1,0 +1,110 @@
+@legacy-half-blue : #2F4154
+@legacy-yellow: #A17100;
+@font-face {
+  font-family: 'Menlo Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+}
+html {
+  color: #f8f8f2;
+  font-size: 1em;
+  line-height: 1.4;
+  font-family: monospace;
+}
+::selection {
+  text-shadow: none;
+}
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+body,
+pre {
+  margin: 0;
+}
+pre {
+  padding: 0;
+}
+p {
+  display: inline-block;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+ul {
+  list-style: none;
+  padding-left: 2rem;
+}
+ul ul li:first-child:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  margin-left: -2.5rem;
+  width: 1px;
+  height: 20%;
+  background-color: #363731;
+  z-index: -1;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+a.snippet-wrapper:focus,
+a.snippet-wrapper:visited,
+a.snippet-wrapper:active,
+a.snippet-wrapper:hover {
+  text-decoration: none;
+}
+a.snippet-wrapper:focus .highlighted,
+a.snippet-wrapper:visited .highlighted,
+a.snippet-wrapper:active .highlighted,
+a.snippet-wrapper:hover .highlighted {
+  text-decoration: underline;
+}
+.shuffleme {
+  display: inline-block;
+}
+/*===========================================*/
+/*   Theme: Monokai   
+/*===========================================*/
+body.theme-monokai {
+  font: 14px/18px 'Menlo Regular', monospace;
+  background: #272822;
+}
+body.theme-monokai span,
+body.theme-monokai p,
+body.theme-monokai a,
+body.theme-monokai div {
+  background-color: #272822;
+}
+body.theme-monokai ::selection {
+  background: #999;
+}
+body.theme-monokai .html-symbol {
+  color: #f8f8f2;
+}
+body.theme-monokai .html-tag {
+  color: #fc1e6d;
+  font-weight: 700;
+}
+body.theme-monokai .html-data {
+  color: #a2e600;
+}
+body.theme-monokai .html-string {
+  color: #e6dd64;
+}
+body.theme-monokai .html-content {
+  color: #f8f8f2;
+}
+body.theme-monokai .html-comment {
+  color: #75715c;
+}
+body.theme-monokai .html-paragraph {
+  color: #f8f8f2;
+}
