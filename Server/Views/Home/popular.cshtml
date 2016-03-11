@@ -17,21 +17,18 @@
 <a class="html snippet-wrapper" href="#/title/{{entry.title}}" ng-repeat="entry in entries">
     <ul>
         <li class="topic-entry">
-            <span class="html-symbol">&lt;</span>
-            <span class="html-tag">section</span>
+            <span class="html-symbol">&lt;</span><span class="html-tag">section</span>
             <span class="html-data"> title</span>
             <span class="html-symbol">=</span>
-            <span class="html-string highlighted">"{{entry.title}}"</span>
+            <span class="html-string highlighted">"{{entry.title}}"</span><span class="html-symbol">&gt;</span>
             @*<span class="html-data"> total-entries</span>
             <span class="html-symbol">=</span>
             <span class="html-string">"HTML-TOTAL-ENTRIES"</span>
-            <span class="html-symbol">&gt;</span>*@
+            *@
         </li>
         <ul ng-show="entry.content">
             <li>
-                <span class="html-symbol">&lt;</span><span class="html-tag">div</span>
-                <span class="html-data"> author</span><span class="html-symbol">=</span>
-                <span class="html-string">"{{entry.content.author}}"</span>
+                <span class="html-symbol">&lt;</span><span class="html-tag">div</span><span class="html-data"> author</span><span class="html-symbol">=</span><span class="html-string">"{{entry.content.author}}"</span>
                 <span class="html-data"> date</span><span class="html-symbol">=</span>
                 <span class="html-string">"{{entry.content.date}}"</span><span class="html-symbol">&gt;</span>
             </li>
