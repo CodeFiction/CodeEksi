@@ -13,11 +13,15 @@ namespace Server
                         "~/Scripts/modernizr-*"));
             
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/loading-bar.min.css",
                       "~/Content/normalize.min.css",
                       "~/Content/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
+                "~/Scripts/angular-sanitize.min.js",
+                "~/Scripts/angular-animate.min.js",
+                "~/Scripts/loading-bar.min.js",
                 "~/Scripts/angular-route.js",
                 "~/lib/app.js"));
         }
