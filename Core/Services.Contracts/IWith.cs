@@ -17,5 +17,8 @@ namespace Services.Contracts
 
         IEnumerable<TModel> BindModelWithStream<TModel>(Stream stream, Action<TModel> postBindAction = null)
             where TModel : class, new();
+
+        IEnumerable<TModel> BindModelHtmlContent<TModel>(string htmlContent, Action<TModel> postBindAction = null)
+            where TModel : class, new();
     }
 }

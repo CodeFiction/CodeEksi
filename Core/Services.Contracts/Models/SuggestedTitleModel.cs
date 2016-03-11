@@ -5,7 +5,7 @@ namespace Services.Contracts.Models
 {
     [Bind("a.suggested-title")]
     [DataContract]
-    public class SuggestedTitle
+    public class SuggestedTitleModel
     {
         [Bind(null, InnerText = true)]
         [DataMember(Name = "title")]

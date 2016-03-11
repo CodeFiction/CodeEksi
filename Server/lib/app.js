@@ -1,12 +1,13 @@
 ﻿(function (angular) {
     "use strict";
-    var app = angular.module("codeSozluk", ["ngRoute"])
+    angular.module("codeSozluk", ["ngRoute"])
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
             "popular": "popular",
             "detail": "entries",
-            "search": "entries/search"
+            "entries": "entries",
+            "search": "titles/search"
         })
         .config(function ($routeProvider) {
             $routeProvider.when("/", {
@@ -27,14 +28,14 @@
             };
 
             $http.get(apiConfig.baseUrl + apiConfig.search + "/?titleText=" + $routeParams.title).success(function (result) {
-                $scope.title.entries = result;
+                $scope.title.entries = result.entry_detail_models;
                 debugger;
             });
         })
         .controller("homeController", function ($scope, $http, $window, apiConfig) {
             $scope.entries = [];
             $scope.openEntry = function (id, entry) {
-                $http.get(apiConfig.baseUrl + apiConfig.detail + "/" + id.substr(1)).success(function (result) {
+                $http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id.substr(1)).success(function (result) {
                     entry.content = result;
                 });
             };
