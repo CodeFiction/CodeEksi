@@ -1,20 +1,43 @@
 ﻿(function (angular) {
     "use strict";
-    var app = angular.module("codeSozluk", [])
+    var app = angular.module("codeSozluk", ["ngRoute"])
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
             "popular": "popular",
-            "detail": "detail"
+            "detail": "entries",
+            "search": "entries/search"
         })
-        .controller("home", function ($scope, $http, $window, apiConfig) {
-            $scope.mm = "Working!";
+        .config(function ($routeProvider) {
+            $routeProvider.when("/", {
+                templateUrl: "home/popular",
+                controller: "homeController"
+            })
+            .when("/detail/:title", {
+                templateUrl: "home/detail",
+                controller: "detailController"
+            })
+            .otherwise({
+                redirectTo: "/"
+            });
+        })
+        .controller("detailController", function ($scope, $http, $routeParams, apiConfig) {
+            $scope.title = {
+                title: $routeParams.title
+            };
+
+            $http.get(apiConfig.baseUrl + apiConfig.search + "/?titleText=" + $routeParams.title).success(function (result) {
+                $scope.title.entries = result;
+                debugger;
+            });
+        })
+        .controller("homeController", function ($scope, $http, $window, apiConfig) {
             $scope.entries = [];
             $scope.openEntry = function (id, entry) {
                 $http.get(apiConfig.baseUrl + apiConfig.detail + "/" + id.substr(1)).success(function (result) {
                     entry.content = result;
                 });
-            }
+            };
             $http.get(apiConfig.baseUrl + apiConfig.debe).success(function (result) {
                 $scope.entries = result;
                 for (var idx = 0; idx < $scope.entries.length; idx++) {

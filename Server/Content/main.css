@@ -6,6 +6,9 @@
   font-weight: normal;
   src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
 }
+*:focus {
+  outline: none;
+}
 html {
   color: #f8f8f2;
   font-size: 1em;
@@ -15,10 +18,6 @@ html {
 ::selection {
   text-shadow: none;
 }
-.hidden {
-  display: none !important;
-  visibility: hidden;
-}
 body,
 pre {
   margin: 0;
@@ -26,13 +25,37 @@ pre {
 pre {
   padding: 0;
 }
+p {
+  display: inline-block;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
 ul {
+  margin: 0;
   list-style: none;
+  padding-left: 2rem;
+}
+ul ul li:first-child:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  margin-left: -2.5rem;
+  width: 1px;
+  height: 100%;
+  z-index: -1;
+}
+div.html.snippet-wrapper {
+  display: inline;
 }
 a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+span {
+  padding: 0;
 }
 a:hover {
   text-decoration: underline;
@@ -49,12 +72,45 @@ a.snippet-wrapper:active .highlighted,
 a.snippet-wrapper:hover .highlighted {
   text-decoration: underline;
 }
+header,
+main {
+  margin-left: 32px;
+}
+input {
+  border: none;
+  width: 80px;
+}
+#sidebar {
+  font: 16px/17px 'Menlo Regular', monospace;
+  letter-spacing: -0.15rem;
+  width: 52px;
+  text-align: right;
+  position: absolute;
+}
+#sidebar ul {
+  padding: 0;
+  margin: 0 15px 0 0;
+}
+#sidebar ul li {
+  margin-top: .058rem;
+}
+.shuffleme {
+  display: inline-block;
+}
 /*===========================================*/
 /*   Theme: Monokai   
 /*===========================================*/
 body.theme-monokai {
-  font: 14px/18px 'Menlo Regular', monospace;
+  font: 14px/17px 'Menlo Regular', monospace;
   background: #272822;
+}
+body.theme-monokai span,
+body.theme-monokai p,
+body.theme-monokai a,
+body.theme-monokai div,
+body.theme-monokai input {
+  background-color: #272822;
+  padding: 1px 0;
 }
 body.theme-monokai ::selection {
   background: #999;
@@ -80,4 +136,53 @@ body.theme-monokai .html-comment {
 }
 body.theme-monokai .html-paragraph {
   color: #f8f8f2;
+}
+body.theme-monokai ul ul li:first-child:before {
+  background-color: #363731;
+}
+body.theme-monokai #sidebar {
+  color: #8F908A;
+}
+/*===========================================*/
+/*   Theme: Chrome
+/*===========================================*/
+body.theme-chrome {
+  font: 14px/17px 'Menlo Regular', monospace;
+  background: white;
+}
+body.theme-chrome span,
+body.theme-chrome p,
+body.theme-chrome a,
+body.theme-chrome div,
+body.theme-chrome input {
+  background-color: white;
+  padding: 1px 0;
+}
+body.theme-chrome ::selection {
+  background: #B0D6FF;
+}
+body.theme-chrome .html-symbol {
+  color: #890482;
+}
+body.theme-chrome .html-tag {
+  color: #890482;
+  font-weight: 700;
+}
+body.theme-chrome .html-data {
+  color: #9B4500;
+}
+body.theme-chrome .html-string {
+  color: #180BA9;
+}
+body.theme-chrome .html-comment {
+  color: #1F6F20;
+}
+body.theme-chrome .html-paragraph {
+  color: #000000;
+}
+body.theme-chrome ul ul li:first-child:before {
+  background-color: #E7E7E7;
+}
+body.theme-chrome #sidebar {
+  color: #ddd;
 }
