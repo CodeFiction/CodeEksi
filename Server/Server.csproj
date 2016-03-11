@@ -171,6 +171,8 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -199,6 +201,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\detail.cshtml" />
     <Content Include="Views\Home\popular.cshtml" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

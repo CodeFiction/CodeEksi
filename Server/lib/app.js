@@ -1,6 +1,7 @@
 ﻿(function (angular) {
+    //var pattern = /\((bkz: )[A-Z a-z]+(\))/gi; ## regex for bkz.
     "use strict";
-    angular.module("codeSozluk", ["ngRoute"])
+    angular.module("codeSozluk", ["ngRoute", "ngSanitize"])
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
@@ -14,7 +15,7 @@
                 templateUrl: "home/popular",
                 controller: "homeController"
             })
-            .when("/detail/:title", {
+            .when("/title/:title", {
                 templateUrl: "home/detail",
                 controller: "detailController"
             })
@@ -22,14 +23,24 @@
                 redirectTo: "/"
             });
         })
+        .directive('ngSearch', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if (event.which === 13) {
+                        scope.$apply(function () {
+                            window.location.hash = "#/title/" + event.target.value;
+                        });
+                        event.preventDefault();
+                    }
+                });
+            };
+        })
         .controller("detailController", function ($scope, $http, $routeParams, apiConfig) {
             $scope.title = {
                 title: $routeParams.title
             };
-
             $http.get(apiConfig.baseUrl + apiConfig.search + "/?titleText=" + $routeParams.title).success(function (result) {
                 $scope.title.entries = result.entry_detail_models;
-                debugger;
             });
         })
         .controller("homeController", function ($scope, $http, $window, apiConfig) {

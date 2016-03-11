@@ -18,6 +18,7 @@ namespace Server
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
+                "~/Scripts/angular-sanitize.min.js",
                 "~/Scripts/angular-route.js",
                 "~/lib/app.js"));
         }
