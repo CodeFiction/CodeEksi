@@ -161,6 +161,8 @@
     <Compile Include="ServerModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\loading-bar.css" />
+    <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\normalize.css" />
     <Content Include="Content\normalize.min.css" />
@@ -168,6 +170,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="lib\app.js" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
@@ -180,6 +184,8 @@
     <Content Include="Content\main.less" />
     <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\codesozluk.pubxml" />
+    <Content Include="Scripts\loading-bar.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
@@ -202,6 +208,7 @@
     <Content Include="Views\Home\detail.cshtml" />
     <Content Include="Views\Home\popular.cshtml" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

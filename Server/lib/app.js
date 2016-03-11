@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     //var pattern = /\((bkz: )[A-Z a-z]+(\))/gi; ## regex for bkz.
     "use strict";
-    angular.module("codeSozluk", ["ngRoute", "ngSanitize"])
+    angular.module("codeSozluk", ["ngRoute", "ngSanitize","angular-loading-bar", "ngAnimate"])
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
@@ -10,7 +10,7 @@
             "entries": "entries",
             "search": "titles/search"
         })
-        .config(function ($routeProvider) {
+        .config(["$routeProvider", "cfpLoadingBarProvider", function ($routeProvider, cfpLoadingBarProvider) {
             $routeProvider.when("/", {
                 templateUrl: "home/popular",
                 controller: "homeController"
@@ -22,9 +22,10 @@
             .otherwise({
                 redirectTo: "/"
             });
-        })
+            cfpLoadingBarProvider.includeSpinner = false;
+        }])
         .directive('ngSearch', function () {
-            return function (scope, element, attrs) {
+            return function (scope, element) {
                 element.bind("keydown keypress", function (event) {
                     if (event.which === 13) {
                         scope.$apply(function () {
