@@ -74,6 +74,10 @@
             };
             $http.get(apiConfig.baseUrl + apiConfig.search + "/?titleText=" + $routeParams.title).success(function (result) {
                 bindToScope(result);
+            }).error(function (result, code) {
+                if (code === 404 && result.length > 0) {
+                    $scope.errorModels = result;
+                }
             });
         })
         .controller("homeController", function ($scope, $http, $window, apiConfig) {

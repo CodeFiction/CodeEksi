@@ -11,18 +11,15 @@
 </ul>
 <ul>
     <li>
-        <span class="html-comment">&lt;!-- HTML-TOPIC-TITLE --&gt;</span>
+        <span ng-hide="errorModels" class="html-comment">&lt;!-- HTML-TOPIC-TITLE --&gt;</span>
+        <span ng-show="errorModels" class="html-comment">&lt;!-- TOPIC-NOT-FOUND-DID-YOU-MEAN --&gt;</span>
     </li>
 </ul>
 <div class="html snippet-wrapper" href="">
     <ul>
         <li>
-            <span class="html-symbol">&lt;</span>
-            <span class="html-tag">section</span>
-            <span class="html-data"> title</span>
-            <span class="html-symbol">=</span>
-            <span class="html-string highlighted">"{{title.title}}"</span>
-            <span class="html-symbol">&gt;</span>
+            <span class="html-symbol">&lt;</span><span class="html-tag">section</span>
+            <span class="html-data"> title</span><span class="html-symbol">=</span><span class="html-string highlighted">"{{title.title}}"</span><span class="html-symbol">&gt;</span>
         </li>
         <li class="topic-entry">
             <ul ng-repeat="entry in title.entries">
@@ -50,6 +47,17 @@
                             <span class="html-symbol">&lt;/</span><span class="html-tag">p</span><span class="html-symbol">&gt;</span>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <span class="html-symbol">&lt;/</span><span class="html-tag">div</span><span class="html-symbol">&gt;</span>
+                </li>
+            </ul>
+            <ul ng-show="errorModels" ng-repeat="model in errorModels">
+                <li>
+                    <span class="html-symbol">&lt;</span><span class="html-tag">div</span>
+                    <span class="html-data"> title</span><span class="html-symbol">=</span>
+                    <span class="html-string"><a href="#/title/{{model.title}}">"{{model.title}}"</a></span>
+                    <span class="html-symbol">&gt;</span>
                 </li>
                 <li>
                     <span class="html-symbol">&lt;/</span><span class="html-tag">div</span><span class="html-symbol">&gt;</span>
