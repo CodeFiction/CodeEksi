@@ -1,4 +1,4 @@
-﻿(function (angular) {
+﻿(function (angular, $) {
     //var pattern = /\((bkz: )[A-Z a-z]+(\))/gi; ## regex for bkz.
     "use strict";
     angular.module("codeSozluk", ["ngRoute", "ngSanitize", "angular-loading-bar", "ngAnimate", "infinite-scroll"])
@@ -27,7 +27,19 @@
         }])
         .directive('ngSearch', function () {
             return function (scope, element) {
+                $(element).blur(function (event) {
+                    if (event.target.value.length > 0) {
+                        return;
+                    }
+                    event.target.style.width = event.target.placeholder.length * 9 + 'px';
+                });
                 element.bind("keydown keypress", function (event) {
+                    var e = event.target, factor = 1;
+                    if (event.which === 8 || event.which === 46) {
+                        factor = -1;
+                    }
+                    e.style.width = (e.value.length + factor) * 9 + 'px';
+
                     if (event.which === 13) {
                         scope.$apply(function () {
                             window.location.hash = "#/title/" + event.target.value;
@@ -93,4 +105,4 @@
                 }
             });
         });
-})(angular);
+})(angular,$);
