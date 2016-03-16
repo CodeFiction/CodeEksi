@@ -1,7 +1,7 @@
 ﻿(function (angular) {
     //var pattern = /\((bkz: )[A-Z a-z]+(\))/gi; ## regex for bkz.
     "use strict";
-    angular.module("codeSozluk", ["ngRoute", "ngSanitize", "angular-loading-bar", "ngAnimate"])
+    angular.module("codeSozluk", ["ngRoute", "ngSanitize", "angular-loading-bar", "ngAnimate", "infinite-scroll"])
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
@@ -45,32 +45,24 @@
                 $scope.title.entries = result.entry_detail_models;
                 $scope.title.id = result.title_name_id_text;
                 //there might be a binding problem here??
-                $rootScope.currentPage = $scope.title.currentPage = parseInt(result.page_count);
-                $rootScope.count = $scope.title.count = parseInt(result.current_page);
+                $scope.currentPage = $scope.title.currentPage = parseInt(result.page_count);
+                $scope.count = $scope.title.count = parseInt(result.current_page);
             };
 
             var generatePagedUrl = function (title, page) {
                 return apiConfig.baseUrl + apiConfig.titles + "/" + $scope.title.id + "?page=" + page;
             }
 
-            $rootScope.paging = true;
-            $rootScope.previous = function () {
-                var prev = $scope.currentPage = $scope.title.currentPage - 1;
-                if (prev > 0) {
-                    $http.get(generatePagedUrl($scope.title.id, prev)).success(function (result) {
-                        bindToScope(result);
-                    });
-                }
+            $scope.loadPaging = function () {
+                var next = $scope.currentPage + 1;
+                if (next < $scope.count + 1) {
+                    $scope.currentPage = next;
 
-            };
-            $rootScope.next = function () {
-                var next = $scope.currentPage = $scope.title.currentPage + 1;
-                if (next < $scope.title.count + 1) {
                     $http.get(generatePagedUrl($scope.title.id, next)).success(function (result) {
-                        bindToScope(result);
+                        Array.prototype.push.apply($scope.title.entries, result.entry_detail_models);
+
                     });
                 }
-
             };
             $http.get(apiConfig.baseUrl + apiConfig.search + "/?titleText=" + $routeParams.title).success(function (result) {
                 bindToScope(result);

@@ -28,47 +28,43 @@
             <!-- <head> -->
             <li>
                 <span class="html-symbol">&lt;</span><span class="html-tag">head</span><span class="html-symbol">&gt;</span>
-            <ul>
-                <li>
-                    <!-- <!-- Beta version #### -> -->
-                    <span class="html-comment">&lt;!-- Beta version @typeof(MvcApplication).Assembly.GetName().Version --&gt;</span>
-                </li>
-                <!-- <meta name="Home" content="Popular Topics"> -->
-                <li>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Home"</span><span class="html-data"> content</span><span class="html-symbol">=</span><a class="html-string shuffleme" href="#/">"Popular Topics"</a><span class="html-symbol">&gt;</span>
-                </li>
-                <!-- <script name="Search"> write here </script> -->
-                <li>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">script</span>
-                    <span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Search"</span><span class="html-symbol">&gt;</span>
-                    <input id="search" class="html-paragraph" type="text" name="search" placeholder="type here" ng-search><span class="html-symbol" style="margin-left: 10px">&lt;/</span><span class="html-tag">script</span><span class="html-symbol">&gt;</span>
-                </li>
+                <ul>
+                    <li>
+                        <!-- <!-- Beta version #### -> -->
+                        <span class="html-comment">&lt;!-- Beta version @typeof(MvcApplication).Assembly.GetName().Version --&gt;</span>
+                    </li>
+                    <!-- <meta name="Home" content="Popular Topics"> -->
+                    <li>
+                        <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Home"</span><span class="html-data"> content</span><span class="html-symbol">=</span><a class="html-string shuffleme" href="#/">"Popular topics"</a><span class="html-symbol">&gt;</span>
+                    </li>
+                    @*<!-- <meta name="Home" content="Most liked entries"> -->
+                        <li>
+                            <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Home"</span><span class="html-data"> content</span><span class="html-symbol">=</span><a class="html-string shuffleme" href="#/">"Most liked entries"</a><span class="html-symbol">&gt;</span>
+                        </li>*@
+                    <!-- <script name="Search"> write here </script> -->
+                    <li>
+                        <span class="html-symbol">&lt;</span><span class="html-tag">script</span>
+                        <span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Search"</span><span class="html-symbol">&gt;</span>
+                        <input id="search" class="html-paragraph" type="text" name="search" placeholder="type here" ng-search><span class="html-symbol" style="margin-left: 10px">&lt;/</span><span class="html-tag">script</span><span class="html-symbol">&gt;</span>
+                    </li>
 
-                <!-- <meta name="Description" content="readme"> -->
-                <li>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Description"</span><span class="html-data"> content</span><span class="html-symbol">=</span><a class="html-string shuffleme">"readme.txt"</a><span class="html-symbol">&gt;</span>
-                </li>
-                <!-- <link rel="stylesheet" href="css/themes.css"> -->
-                <li>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">link</span>
-                    <span class="html-data"> rel</span>
-                    <span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span>
-                    <span class="html-data"> href</span><span class="html-symbol">=</span>
-                    <a id="btn-theme" class="html-string shuffleme" ng-click="okay = !okay">"css/themes.css"</a><span class="html-symbol">&gt;</span>
-                </li>
-                <!-- <link rel="stylesheet" href="css/language.css"> -->
-                <li>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">link</span><span class="html-data"> rel</span><span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span><span class="html-data"> href</span><span class="html-symbol">=</span><a class="html-string shuffleme">"css/language.css"</a><span class="html-symbol">&gt;</span>
-                </li>
-
-                <li ng-show="paging">
-                    <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> currentPage</span><span class="html-symbol">=</span><span class="html-string">"{{currentPage}}"</span><span class="html-data"> pageCount</span><span class="html-symbol">=</span><a class="html-string shuffleme">"{{count}}"</a><span class="html-symbol">&gt;</span>
-                </li>
-                <li ng-show="paging">
-                    <span class="html-symbol">&lt;</span><span class="html-tag">script</span><span class="html-data"> src</span><span class="html-symbol">=</span><a class="shuffleme"><span class="html-string" ng-click="previous()">"previous_page.js"</span></a><span class="html-symbol">&gt;</span><span class="html-symbol" style="margin-left: 10px">&lt;/</span><span class="html-tag">script</span><span class="html-symbol">&gt;</span>
-                    <span class="html-symbol">&lt;</span><span class="html-tag">script</span><span class="html-data"> src</span><span class="html-symbol">=</span><a class="shuffleme"><span class="html-string" ng-click="next()">"next_page.js"</span></a><span class="html-symbol">&gt;</span><span class="html-symbol" style="margin-left: 10px">&lt;/</span><span class="html-tag">script</span><span class="html-symbol">&gt;</span>
-                </li>
-            </ul>
+                    <!-- <meta name="Description" content="readme"> -->
+                    <li>
+                        <span class="html-symbol">&lt;</span><span class="html-tag">meta</span><span class="html-data"> name</span><span class="html-symbol">=</span><span class="html-string">"Description"</span><span class="html-data"> content</span><span class="html-symbol">=</span><a class="html-string shuffleme">"readme.txt"</a><span class="html-symbol">&gt;</span>
+                    </li>
+                    <!-- <link rel="stylesheet" href="css/themes.css"> -->
+                    <li>
+                        <span class="html-symbol">&lt;</span><span class="html-tag">link</span>
+                        <span class="html-data"> rel</span>
+                        <span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span>
+                        <span class="html-data"> href</span><span class="html-symbol">=</span>
+                        <a id="btn-theme" class="html-string shuffleme" ng-click="okay = !okay">"css/themes.css"</a><span class="html-symbol">&gt;</span>
+                    </li>
+                    <!-- <link rel="stylesheet" href="css/language.css"> -->
+                    <li>
+                        <span class="html-symbol">&lt;</span><span class="html-tag">link</span><span class="html-data"> rel</span><span class="html-symbol">=</span><span class="html-string">"Stylesheet"</span><span class="html-data"> href</span><span class="html-symbol">=</span><a class="html-string shuffleme">"css/language.css"</a><span class="html-symbol">&gt;</span>
+                    </li>
+                </ul>
                 <!-- </head> -->
             <li>
                 <span class="html-symbol">&lt;/</span><span class="html-tag">head</span><span class="html-symbol">&gt;</span>
@@ -91,7 +87,6 @@
                 <span class="html-symbol">&lt;/</span><span class="html-tag">body</span><span class="html-symbol">&gt;</span>
             </li>
         </ul>
-
     </main>
     <script>
         (function (i, s, o, g, r, a, m) {

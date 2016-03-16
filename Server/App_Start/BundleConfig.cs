@@ -18,7 +18,9 @@ namespace Server
                       "~/Content/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/jquery-2.2.1.min.js",
                 "~/Scripts/angular.js",
+                "~/Scripts/ng-infinite-scroll.min.js",  
                 "~/Scripts/angular-sanitize.min.js",
                 "~/Scripts/angular-animate.min.js",
                 "~/Scripts/loading-bar.min.js",
