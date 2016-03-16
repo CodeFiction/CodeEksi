@@ -11,11 +11,11 @@ namespace Services.Contracts.Models
     // Dolayısıyla BindAttribute kullanılırken AttributeName verilmişse css selector null olmalı kuralı revize edilip düzeltilmeli
     public class TitleModel
     {
-        [Bind(null, AttributeName = "data-currentpage")]
+        [Bind(null, AttributeName = "data-pagecount")]
         [DataMember(Name = "page_count")]
         public string PageCount { get; set; }
 
-        [Bind(null, AttributeName = "data-pagecount")] // TODO : optinal binding desteği getirilmeli.
+        [Bind(null, AttributeName = "data-currentpage")] // TODO : optinal binding desteği getirilmeli.
         [DataMember(Name = "current_page")]
         public string CurrentPage { get; set; }
 

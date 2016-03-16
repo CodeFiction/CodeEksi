@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Server.Services.Helpers;
 using Services.Contracts;
 using Services.Contracts.Exceptions;
 using Services.Contracts.Models;
-using HtmlParser = AngleSharp.Parser.Html.HtmlParser;
 
 namespace Server.Services
 {
@@ -24,9 +21,13 @@ namespace Server.Services
             _bindingComponent = bindingComponent;
         }
 
-        public async Task<IList<DebeTitleHeaderModel>> GetDebeList()
+        public async Task<DebeModel> GetDebeList()
         {
-            var debeTitleModels = await _bindingComponent
+            DebeModel debeModel = new DebeModel();
+            debeModel.CurrentPage = "1";
+            debeModel.PageCount = "1";
+
+            IEnumerable<DebeTitleHeaderModel> debeTitleHeaderModels = await _bindingComponent
                 .Binder()
                 .WithUrl("https://eksisozluk.com/debe")
                 .WithQueryString(new KeyValuePair<string, string>("_", DateTime.Now.Ticks.ToString()))
@@ -34,12 +35,28 @@ namespace Server.Services
                 .BindModel<DebeTitleHeaderModel>(model =>
                 {
                     string decodedUrl = WebUtility.UrlDecode(model.Link);
-                    string entryId = $"#{decodedUrl.Split('#')[1]}";
+                    string entryId = decodedUrl.Split('#')[1];
 
                     model.EntryId = entryId;
                 });
 
-            return debeTitleModels.ToList();
+            // TODO : @deniz buradaki işlemin async await mimarisine uygun şekilde BindModel'in içerisinde yapılması gerekiyor.
+            var titleHeaderModels = debeTitleHeaderModels as IList<DebeTitleHeaderModel> ?? debeTitleHeaderModels.ToList();
+
+            IEnumerable<Task> entryTasks = titleHeaderModels.Select(model =>
+            {
+                return Task.Run(async () =>
+                {
+                    EntryDetailModel entryDetailModel = await GetEntryById(model.EntryId);
+                    model.DebeEntryDetailModel = entryDetailModel;
+                });
+            });
+
+            await Task.WhenAll(entryTasks);
+
+            debeModel.DebeTitleHeaderModels = titleHeaderModels.ToList();
+
+            return debeModel;
         }
 
         public async Task<PopulerModel> GetPopulerList(int? page = null)
@@ -59,44 +76,26 @@ namespace Server.Services
 
             request.Headers.Add("X-Requested-With", "XMLHttpRequest");
 
-            using (HttpClient httpClient = new HttpClient())
+            return await BindHttpRequestMessage<PopulerModel>(request, htmlContent =>
             {
-                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request))
-                {
-                    string htmlContent = await httpResponseMessage.Content.ReadAsStringAsync();
+                List<PopulerTitleHeaderModel> populerTitleHeaderModels = _bindingComponent
+                    .Binder()
+                    .BindModelHtmlContent<PopulerTitleHeaderModel>(htmlContent,
+                        model =>
+                        {
+                            model.Title = model.Title.Substring(0, model.Title.Length - model.EntryCount.Length);
+                        }).ToList();
 
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        throw new NotFoundException(uri.ToString());
-                    }
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.InternalServerError)
-                    {
-                        throw new InternalServerErrorException(uri.ToString());
-                    }
-                    if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new GenericHttpException(httpResponseMessage.StatusCode, uri.ToString());
-                    }
+                PopulerModel populerModel = _bindingComponent
+                    .Binder()
+                    .BindModelHtmlContent<PopulerModel>(htmlContent).FirstOrDefault();
 
-                    List<PopulerTitleHeaderModel> populerTitleHeaderModels = _bindingComponent
-                        .Binder()
-                        .BindModelHtmlContent<PopulerTitleHeaderModel>(htmlContent,
-                            model =>
-                            {
-                                model.Title = model.Title.Substring(0, model.Title.Length - model.EntryCount.Length);
-                            }).ToList();
+                populerModel = populerModel ?? new PopulerModel() {CurrentPage = "1", PageCount = "2"};
 
-                    PopulerModel populerModel = _bindingComponent
-                        .Binder()
-                        .BindModelHtmlContent<PopulerModel>(htmlContent).FirstOrDefault();
+                populerModel.PopulerTitleHeaderModels = populerTitleHeaderModels;
 
-                    populerModel = populerModel ?? new PopulerModel() {CurrentPage = "1", PageCount = "2"};
-
-                    populerModel.PopulerTitleHeaderModels = populerTitleHeaderModels;
-
-                    return populerModel;
-                }
-            }
+                return populerModel;
+            });
         }
 
         public async Task<EntryDetailModel> GetEntryById(string entryId)
@@ -104,7 +103,7 @@ namespace Server.Services
             IEnumerable<EntryDetailModel> entryDetailModels = await _bindingComponent
                 .Binder()
                 .WithUrl($"https://eksisozluk.com/entry/{entryId}")
-                .WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
+                //.WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
                 .BindModel<EntryDetailModel>();
 
             return entryDetailModels.FirstOrDefault();
@@ -188,9 +187,38 @@ namespace Server.Services
 
             request.Headers.Add("X-Requested-With", "XMLHttpRequest");
 
+            // TODO : @deniz nested modeller için binding desteklememiz gerekiyor. 
+            return await BindHttpRequestMessage<TitleModel>(request, htmlContent =>
+            {
+                TitleModel titleModel = _bindingComponent
+                    .Binder()
+                    .BindModelHtmlContent<TitleModel>(htmlContent, model => model.TitleNameIdText = titleNameIdText)
+                    .FirstOrDefault();
+
+                titleModel = titleModel ??
+                             new TitleModel()
+                             {
+                                 CurrentPage = "1",
+                                 PageCount = "1",
+                                 TitleNameIdText = titleNameIdText
+                             };
+
+                titleModel.EntryDetailModels = _bindingComponent
+                    .Binder()
+                    .BindModelHtmlContent<EntryDetailModel>(htmlContent).ToList();
+
+                return titleModel;
+            });
+        }
+
+        // TOOD : @deniz bu yapı Binding yapısına taşınacak.
+        private async Task<TModel> BindHttpRequestMessage<TModel>(HttpRequestMessage httpRequestMessage, Func<string, TModel> func)
+        {
+            Uri uri = httpRequestMessage.RequestUri;
+
             using (HttpClient httpClient = new HttpClient())
             {
-                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request))
+                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(httpRequestMessage))
                 {
                     string htmlContent = await httpResponseMessage.Content.ReadAsStringAsync();
 
@@ -207,26 +235,9 @@ namespace Server.Services
                         throw new GenericHttpException(httpResponseMessage.StatusCode, uri.ToString());
                     }
 
-                    TitleModel titleModel = _bindingComponent
-                        .Binder()
-                        .BindModelHtmlContent<TitleModel>(htmlContent, model => model.TitleNameIdText = titleNameIdText)
-                        .FirstOrDefault();
-
-                    titleModel = titleModel ??
-                                 new TitleModel()
-                                 {
-                                     CurrentPage = "1",
-                                     PageCount = "1",
-                                     TitleNameIdText = titleNameIdText
-                                 };
-
-                    titleModel.EntryDetailModels = _bindingComponent
-                        .Binder()
-                        .BindModelHtmlContent<EntryDetailModel>(htmlContent).ToList();
-
-                    return titleModel;
+                    return func(htmlContent);
                 }
             }
-        }
+        }    
     }
 }
