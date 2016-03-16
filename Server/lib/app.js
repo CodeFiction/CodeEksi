@@ -72,7 +72,7 @@
 
                     $http.get(generatePagedUrl($scope.title.id, next)).success(function (result) {
                         Array.prototype.push.apply($scope.title.entries, result.entry_detail_models);
-
+                        window.refreshNumberOfline();
                     });
                 }
             };
@@ -89,6 +89,7 @@
             $scope.openEntry = function (id, entry) {
                 $http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id.substr(1)).success(function (result) {
                     entry.content = result;
+                    window.refreshNumberOfline();
                     //if (entry.content.length > 200) {
                     //    entry.shortContent = entry.content.substr(200);
                     //    entry.showMore = false;
@@ -105,4 +106,40 @@
                 }
             });
         });
-})(angular,$);
+})(angular, $);
+
+(function ($) {
+    function calcNumberOfLine() {
+        var fontHeight = parseInt($("body").css('line-height'));
+        return parseInt($("body").height() / fontHeight)-20;
+    };
+    function appendLine(number) {
+        var $li = $("<li>");
+        $li.text(number);
+        $("#sidebar ul").append($li);
+    };
+    function appendLineNumberItems() {
+        var numberOfLine = calcNumberOfLine();
+        if (numberOfLine <= $("#sidebar li").length) {
+            return;
+        }
+        for (var i = 1; i <= numberOfLine - 2; i++) {
+            appendLine(i);
+        }
+    };
+    function removeNumberOfLine() {
+        $("#sidebar ul").empty();
+    }
+    appendLineNumberItems();
+
+    var refreshNumberOfline = window.refreshNumberOfline = function () {
+        removeNumberOfLine();
+        appendLineNumberItems();
+    };
+
+
+    $(document).ready(function () {
+        refreshNumberOfline();
+        $(window).resize(refreshNumberOfline);
+    });
+})(jQuery);
