@@ -183,11 +183,14 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Content\main.less" />
     <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\codesozluk.pubxml" />
+    <Content Include="Scripts\jquery-2.2.1.js" />
+    <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\loading-bar.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ng-infinite-scroll.js" />
+    <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -209,6 +212,9 @@
     <Content Include="Views\Home\popular.cshtml" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <None Include="Properties\PublishProfiles\Direct Publish.pubxml" />
+    <None Include="Properties\PublishProfiles\File System.pubxml" />
+    <Content Include="Scripts\jquery-2.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
