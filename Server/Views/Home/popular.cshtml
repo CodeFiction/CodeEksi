@@ -15,11 +15,11 @@
             <span class="html-symbol">=</span>
             <span class="html-string highlighted">"{{entry.title}}"</span><span class="html-symbol">&gt;</span>
         </li>
-        <ul ng-show="entry.content">
+        <ul ng-show="entry.debe_entry_detail_model">
             <li>
-                <span class="html-symbol">&lt;</span><span class="html-tag">div</span><span class="html-data"> author</span><span class="html-symbol">=</span><span class="html-string">"{{entry.content.author}}"</span>
+                <span class="html-symbol">&lt;</span><span class="html-tag">div</span><span class="html-data"> author</span><span class="html-symbol">=</span><span class="html-string">"{{entry.debe_entry_detail_model.author}}"</span>
                 <span class="html-data"> date</span><span class="html-symbol">=</span>
-                <span class="html-string">"{{entry.content.date}}"</span><span class="html-symbol">&gt;</span>
+                <span class="html-string">"{{entry.debe_entry_detail_model.date}}"</span><span class="html-symbol">&gt;</span>
             </li>
             <li>
                 <ul>
@@ -29,7 +29,7 @@
                     <li>
                         <ul>
                             <li>
-                                <span class="html-paragraph" ng-bind-html="entry.content.content">
+                                <span class="html-paragraph" ng-bind-html="entry.debe_entry_detail_model.content">
                                 </span>
                             </li>
                         </ul>
