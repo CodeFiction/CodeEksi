@@ -50,6 +50,7 @@
             };
         })
         .controller("detailController", function ($rootScope, $scope, $http, $routeParams, apiConfig) {
+            window.scrollTo(0, 0);
             $scope.title = {
                 title: $routeParams.title
             };
@@ -71,7 +72,7 @@
 
                     $http.get(generatePagedUrl($scope.title.id, next)).success(function (result) {
                         Array.prototype.push.apply($scope.title.entries, result.entry_detail_models);
-                        window.refreshNumberOfline();
+                        setTimeout(window.refreshNumberOfline, 300);
                     });
                 }
             };
@@ -85,26 +86,9 @@
         })
         .controller("homeController", function ($scope, $http, $window, apiConfig) {
             $scope.entries = [];
-            $scope.openEntry = function (entry) {
-                entry.content = entry.debe_entry_detail_model;
-                window.refreshNumberOfline();
-                //$http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id).success(function (result) {
-                //    entry.content = result;
-                //    window.refreshNumberOfline();
-                //    //if (entry.content.length > 200) {
-                //    //    entry.shortContent = entry.content.substr(200);
-                //    //    entry.showMore = false;
-                //    //} else {
-                //    //    entry.showMore = true;
-                //    //}
-                //});
-            };
             $http.get(apiConfig.baseUrl + apiConfig.debe).success(function (result) {
                 $scope.entries = result.debe_title_models;
-                for (var idx = 0; idx < $scope.entries.length; idx++) {
-                    var $entry = $scope.entries[idx];
-                    $scope.openEntry($entry);
-                }
+                setTimeout(window.refreshNumberOfline, 100);
             });
         });
 })(angular, $);
