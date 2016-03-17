@@ -56,9 +56,8 @@
             var bindToScope = function (result) {
                 $scope.title.entries = result.entry_detail_models;
                 $scope.title.id = result.title_name_id_text;
-                //there might be a binding problem here??
-                $scope.currentPage = $scope.title.currentPage = parseInt(result.page_count);
-                $scope.count = $scope.title.count = parseInt(result.current_page);
+                $scope.currentPage = $scope.title.currentPage = parseInt(result.current_page);
+                $scope.count = $scope.title.count = parseInt(result.page_count);
             };
 
             var generatePagedUrl = function (title, page) {
@@ -86,23 +85,25 @@
         })
         .controller("homeController", function ($scope, $http, $window, apiConfig) {
             $scope.entries = [];
-            $scope.openEntry = function (id, entry) {
-                $http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id.substr(1)).success(function (result) {
-                    entry.content = result;
-                    window.refreshNumberOfline();
-                    //if (entry.content.length > 200) {
-                    //    entry.shortContent = entry.content.substr(200);
-                    //    entry.showMore = false;
-                    //} else {
-                    //    entry.showMore = true;
-                    //}
-                });
+            $scope.openEntry = function (entry) {
+                entry.content = entry.debe_entry_detail_model;
+                window.refreshNumberOfline();
+                //$http.get(apiConfig.baseUrl + apiConfig.entries + "/" + id).success(function (result) {
+                //    entry.content = result;
+                //    window.refreshNumberOfline();
+                //    //if (entry.content.length > 200) {
+                //    //    entry.shortContent = entry.content.substr(200);
+                //    //    entry.showMore = false;
+                //    //} else {
+                //    //    entry.showMore = true;
+                //    //}
+                //});
             };
             $http.get(apiConfig.baseUrl + apiConfig.debe).success(function (result) {
-                $scope.entries = result;
+                $scope.entries = result.debe_title_models;
                 for (var idx = 0; idx < $scope.entries.length; idx++) {
                     var $entry = $scope.entries[idx];
-                    $scope.openEntry($entry.entry_id, $entry);
+                    $scope.openEntry($entry);
                 }
             });
         });

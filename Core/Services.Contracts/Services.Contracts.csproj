@@ -54,6 +54,7 @@
     <Compile Include="IEksiFeedService.cs" />
     <Compile Include="IModelBinder.cs" />
     <Compile Include="IWith.cs" />
+    <Compile Include="Models\DebeModel.cs" />
     <Compile Include="Models\DebeTitleHeaderModel.cs" />
     <Compile Include="Models\EntryDetailModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />

@@ -6,7 +6,7 @@ namespace Services.Contracts
 {
     public interface IEksiFeedService
     {
-        Task<IList<DebeTitleHeaderModel>> GetDebeList();
+        Task<DebeModel> GetDebeList();
         Task<PopulerModel> GetPopulerList(int? page = null);
         Task<EntryDetailModel> GetEntryById(string entryId);
         Task<SearchResultModel> SearchTitle(string titleText);

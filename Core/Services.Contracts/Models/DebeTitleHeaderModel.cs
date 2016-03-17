@@ -19,5 +19,8 @@ namespace Services.Contracts.Models
 
         [DataMember(Name = "entry_id")]
         public string EntryId { get; set; }
+
+        [DataMember(Name = "debe_entry_detail_model")]
+        public EntryDetailModel DebeEntryDetailModel { get; set; }
     }
 }

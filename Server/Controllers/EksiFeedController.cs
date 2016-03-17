@@ -23,12 +23,12 @@ namespace Server.Controllers
             _eksiFeedService = eksiFeedService;
         }
 
-        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof (IList<DebeTitleHeaderModel>))]
+        [Route("debe"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof (DebeModel))]
         public async Task<IHttpActionResult> GetDebeList()
         {
-            IList<DebeTitleHeaderModel> titleModels = await _eksiFeedService.GetDebeList();
+            DebeModel debeModel = await _eksiFeedService.GetDebeList();
 
-            return Ok(titleModels);
+            return Ok(debeModel);
         }
 
         [Route("populer"), HttpGet, SwaggerResponse(HttpStatusCode.OK, Type = typeof (PopulerModel))]
