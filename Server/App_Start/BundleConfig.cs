@@ -25,6 +25,7 @@ namespace Server
                 "~/Scripts/angular-animate.min.js",
                 "~/Scripts/loading-bar.min.js",
                 "~/Scripts/angular-route.js",
+                "~/Scripts/shufflecode.js",
                 "~/lib/app.js"));
 
 #if !DEBUG
