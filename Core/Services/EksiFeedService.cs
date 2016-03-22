@@ -212,7 +212,7 @@ namespace Server.Services
 
                 titleModel.EntryDetailModels = _bindingComponent
                     .Binder()
-                    .BindModelHtmlContent<EntryDetailModel>(htmlContent).ToList();
+                    .BindModelHtmlContent<EntryDetailModel>(htmlContent, t => t.Content = t.Content.FixLinks()).ToList();
 
                 return titleModel;
             });
