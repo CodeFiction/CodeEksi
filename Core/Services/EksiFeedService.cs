@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Castle.Core.Internal;
 using Server.Services.Helpers;
 using Services.Contracts;
 using Services.Contracts.Exceptions;
 using Services.Contracts.Models;
+using static System.Threading.Tasks.TaskExtensions;
 
 namespace Server.Services
 {
@@ -23,9 +23,11 @@ namespace Server.Services
 
         public async Task<DebeModel> GetDebeList()
         {
-            DebeModel debeModel = new DebeModel();
-            debeModel.CurrentPage = "1";
-            debeModel.PageCount = "1";
+            DebeModel debeModel = new DebeModel
+            {
+                CurrentPage = "1",
+                PageCount = "1"
+            };
 
             IEnumerable<DebeTitleHeaderModel> debeTitleHeaderModels = await _bindingComponent
                 .Binder()
@@ -45,7 +47,7 @@ namespace Server.Services
 
             IEnumerable<Task> entryTasks = titleHeaderModels.Select(model =>
             {
-                return Task.Run(async () =>
+                return RunWithErrorHandling(async () =>
                 {
                     EntryDetailModel entryDetailModel = await GetEntryById(model.EntryId);
                     model.DebeEntryDetailModel = entryDetailModel;
@@ -76,7 +78,7 @@ namespace Server.Services
 
             request.Headers.Add("X-Requested-With", "XMLHttpRequest");
 
-            return await BindHttpRequestMessage<PopulerModel>(request, htmlContent =>
+            return await BindHttpRequestMessage(request, htmlContent =>
             {
                 List<PopulerTitleHeaderModel> populerTitleHeaderModels = _bindingComponent
                     .Binder()
@@ -90,7 +92,7 @@ namespace Server.Services
                     .Binder()
                     .BindModelHtmlContent<PopulerModel>(htmlContent).FirstOrDefault();
 
-                populerModel = populerModel ?? new PopulerModel() {CurrentPage = "1", PageCount = "2"};
+                populerModel = populerModel ?? new PopulerModel() { CurrentPage = "1", PageCount = "2" };
 
                 populerModel.PopulerTitleHeaderModels = populerTitleHeaderModels;
 
@@ -100,13 +102,21 @@ namespace Server.Services
 
         public async Task<EntryDetailModel> GetEntryById(string entryId)
         {
+            //try
+            //{
             IEnumerable<EntryDetailModel> entryDetailModels = await _bindingComponent
-                .Binder()
-                .WithUrl($"https://eksisozluk.com/entry/{entryId}")
-                //.WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
-                .BindModel<EntryDetailModel>();
+            .Binder()
+            .WithUrl($"https://eksisozluk.com/entry/{entryId}")
+            //.WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
+            .BindModel<EntryDetailModel>();
 
             return entryDetailModels.FirstOrDefault();
+            //}
+            //catch (Exception x)
+            //{
+            //    Trace.WriteLine(x.Message);
+            //    return null;
+            //}
         }
 
         public async Task<SearchResultModel> SearchTitle(string titleText)
@@ -188,7 +198,7 @@ namespace Server.Services
             request.Headers.Add("X-Requested-With", "XMLHttpRequest");
 
             // TODO : @deniz nested modeller için binding desteklememiz gerekiyor. 
-            return await BindHttpRequestMessage<TitleModel>(request, htmlContent =>
+            return await BindHttpRequestMessage(request, htmlContent =>
             {
                 TitleModel titleModel = _bindingComponent
                     .Binder()
@@ -238,6 +248,6 @@ namespace Server.Services
                     return func(htmlContent);
                 }
             }
-        }    
+        }
     }
 }
