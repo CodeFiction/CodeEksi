@@ -32,6 +32,10 @@
                 templateUrl: "home/detail",
                 controller: "detailController"
             })
+            .when("/entry/:entryId", {
+                templateUrl: "home/entry",
+                controller: "entryController"
+            })
             .otherwise({
                 redirectTo: "/"
             });
@@ -100,6 +104,32 @@
                     $scope.errorModels = result;
                 }
             });
+        }])
+        .controller('entryController', ["$scope", "$http", "$routeParams", "apiConfig", "storage", "$rootScope", function ($scope, $http, $routeParams, apiConfig, storage, $rootScope) {
+            var entryId = $routeParams.entryId;
+            window.scrollTo(0, 0);
+            $rootScope.okay = storage.read("theme") === "true";
+            $rootScope.$watch("okay", function (n, o) {
+                storage.write("theme", n);
+            });
+
+            $scope.title = {
+                title: ""
+            };
+            var bindToScope = function (result) {
+                $scope.title.entries = [];
+                $scope.title.entries.push(result);
+            };
+
+            $http.get(apiConfig.baseUrl + apiConfig.entries + "/" + entryId).success(function (result) {
+                bindToScope(result);
+                setTimeout(window.refreshNumberOfline, 100);
+            }).error(function (result, code) {
+                if (code === 404 && result.length > 0) {
+                    $scope.errorModels = result;
+                }
+            });
+
         }])
         .controller("homeController", ["$scope", "$http", "$window", "apiConfig", "storage", "$rootScope", function ($scope, $http, $window, apiConfig, storage, $rootScope) {
             $scope.entries = [];
