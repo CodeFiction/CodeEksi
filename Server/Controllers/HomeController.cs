@@ -18,5 +18,10 @@ namespace Server.Controllers
         {
             return View();
         }
+
+        public ActionResult Entry()
+        {
+            return View();
+        }
     }
 }

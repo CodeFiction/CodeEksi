@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "entry";
+    Layout = null;
+}
+<div class="html snippet-wrapper" href="">
+    <ul>
+        <li>
+            <span class="html-symbol">&lt;</span><span class="html-tag">section</span><span class="html-data"> title</span><span class="html-symbol">=</span><span class="html-string highlighted">"{{title.title}}"</span><span class="html-symbol">&gt;</span>
+        </li>
+        <li class="topic-entry">
+            <ul ng-repeat="entry in title.entries">
+                <li>
+                    <span class="html-symbol">&lt;</span><span class="html-tag">div</span><span class="html-data"> author</span><span class="html-symbol">=</span><span class="html-string">"{{entry.author}}"</span><span class="html-data"> date</span><span class="html-symbol">=</span><span class="html-string">"{{entry.date}}"</span><span class="html-symbol">&gt;</span>
+                </li>
+                <li>
+                    <ul>
+                        <li>
+                            <span class="html-symbol">&lt;</span><span class="html-tag">p</span><span class="html-symbol">&gt;</span>
+                        </li>
+                        <li>
+                            <ul>
+                                <li>
+                                    <p class="html-paragraph" ng-bind-html="entry.content" parse-Content></p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="html-symbol">&lt;/</span><span class="html-tag">p</span><span class="html-symbol">&gt;</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="html-symbol">&lt;/</span><span class="html-tag">div</span><span class="html-symbol">&gt;</span>
+                </li>
+            </ul>
+            <ul ng-show="errorModels" ng-repeat="model in errorModels">
+                <li>
+                    <span class="html-symbol">&lt;</span><span class="html-tag">div</span>
+                    <span class="html-data"> title</span><span class="html-symbol">=</span>
+                    <span class="html-string"><a href="#/title/{{model.title}}">"{{model.title}}"</a></span>
+                    <span class="html-symbol">&gt;</span>
+                </li>
+                <li>
+                    <span class="html-symbol">&lt;/</span><span class="html-tag">div</span><span class="html-symbol">&gt;</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span class="html-symbol">&lt;/</span><span class="html-tag">section</span><span class="html-symbol">&gt;</span>
+        </li>
+    </ul>
+    <div infinite-scroll="loadPaging()" infinite-scroll-distance="3"></div>
+</div>

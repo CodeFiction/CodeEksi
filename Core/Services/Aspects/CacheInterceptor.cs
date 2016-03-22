@@ -21,11 +21,13 @@ namespace Server.Services.Aspects
             string cacheKey = CacheKeyHelper.GetCacheKey(methodInvocationTarget, invocation.Arguments);
             object cacheValue = _objectCache.Get(cacheKey);
 
+#if !DEBUG
             if (cacheValue != null)
             {
                 invocation.ReturnValue = cacheValue;
                 return;
             }
+#endif
 
             invocation.Proceed();
 

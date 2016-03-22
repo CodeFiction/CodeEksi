@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using Server.Services.Helpers;
+using Server.Services.Utils;
 using Services.Contracts;
 using Services.Contracts.Exceptions;
 using Services.Contracts.Models;
@@ -102,21 +104,15 @@ namespace Server.Services
 
         public async Task<EntryDetailModel> GetEntryById(string entryId)
         {
-            //try
-            //{
             IEnumerable<EntryDetailModel> entryDetailModels = await _bindingComponent
             .Binder()
             .WithUrl($"https://eksisozluk.com/entry/{entryId}")
             //.WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
             .BindModel<EntryDetailModel>();
 
-            return entryDetailModels.FirstOrDefault();
-            //}
-            //catch (Exception x)
-            //{
-            //    Trace.WriteLine(x.Message);
-            //    return null;
-            //}
+            var result = entryDetailModels.FirstOrDefault();
+            result.Content = result.Content.FixLinks();
+            return result;
         }
 
         public async Task<SearchResultModel> SearchTitle(string titleText)
@@ -159,7 +155,8 @@ namespace Server.Services
 
                         titleModel.EntryDetailModels = _bindingComponent
                             .Binder()
-                            .BindModelHtmlContent<EntryDetailModel>(htmlContent).ToList();
+                            .BindModelHtmlContent<EntryDetailModel>(htmlContent, c => c.Content = c.Content.FixLinks())
+                            .ToList();
 
                         searchResultModel.TitleModel = titleModel;
 

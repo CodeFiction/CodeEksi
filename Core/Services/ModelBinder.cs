@@ -183,7 +183,7 @@ namespace Server.Services
                     {
                         elementValue = string.IsNullOrEmpty(propertyBindAttribute.CssSelector)
                             ? element.TextContent
-                            : element.QuerySelector(propertyBindAttribute.CssSelector).TextContent;
+                            : element.QuerySelector(propertyBindAttribute.CssSelector).InnerHtml;
                     }
                     else
                     {

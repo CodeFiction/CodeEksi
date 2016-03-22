@@ -215,6 +215,7 @@
     <None Include="Properties\PublishProfiles\Direct Publish.pubxml" />
     <None Include="Properties\PublishProfiles\File System.pubxml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\Home\entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
