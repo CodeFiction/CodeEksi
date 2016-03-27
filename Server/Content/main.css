@@ -1,5 +1,3 @@
-@legacy-half-blue : #2F4154
-@legacy-yellow: #A17100;
 @font-face {
   font-family: 'Menlo Regular';
   font-style: normal;
@@ -25,21 +23,25 @@ pre {
 pre {
   padding: 0;
 }
+ul {
+  position: relative;
+}
 p {
-  display: inline-block;
+  display: inline;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   -webkit-margin-start: 0;
   -webkit-margin-end: 0;
 }
 ul {
+  position: relative;
   margin: 0;
   list-style: none;
   padding-left: 2rem;
 }
-ul ul li:first-child:before {
+ul :first-child:before {
   content: "";
-  display: inline-block;
+  display: inline;
   position: absolute;
   margin-left: -2.5rem;
   width: 1px;
@@ -92,10 +94,16 @@ input {
   margin: 0 15px 0 0;
 }
 #sidebar ul li {
-  margin-top: .058rem;
+  margin-top: 0.05rem;
 }
 .shuffleme {
-  display: inline-block;
+  display: inline;
+}
+#theme-menu {
+  display: none;
+}
+#theme-menu.open {
+  display: inline;
 }
 /*===========================================*/
 /*   Theme: Monokai   
@@ -110,7 +118,6 @@ body.theme-monokai a,
 body.theme-monokai div,
 body.theme-monokai input {
   background-color: #272822;
-  padding: 1px 0;
 }
 body.theme-monokai ::selection {
   background: #999;

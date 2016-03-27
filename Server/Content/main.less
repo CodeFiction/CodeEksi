@@ -1,4 +1,3 @@
-
 @legacy-bg: #0D1014;
 @legacy-comment: #1D2732;
 @legacy-dark-blue: #144F72;
@@ -44,8 +43,12 @@ pre {
     padding: 0
 }
 
+ul {
+    position: relative;
+}
+
 p {
-    display: inline-block;
+    display: inline;
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     -webkit-margin-start: 0;
@@ -54,15 +57,16 @@ p {
 }
 
 ul  {
+    position: relative;
     margin: 0;
     list-style: none;
     padding-left: 2rem;
     //position: absolute;
 }
 
-ul ul li:first-child:before {
+ul :first-child:before {
     content: "";
-    display: inline-block;
+    display: inline;
     position: absolute;
     margin-left: -2.5rem;
     width: 1px;
@@ -119,13 +123,20 @@ input {
         padding: 0;
         margin: 0 15px 0 0;
         li {
-            margin-top: .058rem;
+            margin-top: 0.05rem;
         }
     }
 }
 
 .shuffleme {
-  display: inline-block;
+  display: inline;
+}
+
+#theme-menu {
+    display: none;
+    &.open {
+        display: inline;
+    }
 }
 
 /*===========================================*/
@@ -149,7 +160,7 @@ body.theme-monokai {
     background: @monokai-bg;
     span, p, a, div, input {
         background-color: @monokai-bg;
-        padding: 1px 0;
+
     }
     ::selection {
         background: #999; 
