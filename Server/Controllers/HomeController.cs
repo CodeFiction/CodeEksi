@@ -14,6 +14,11 @@ namespace Server.Controllers
             return View();
         }
 
+        public ActionResult MostLiked()
+        {
+            return View();
+        }
+
         public ActionResult Popular()
         {
             return View();

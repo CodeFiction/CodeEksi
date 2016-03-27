@@ -210,13 +210,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\detail.cshtml" />
-    <Content Include="Views\Home\popular.cshtml" />
+    <Content Include="Views\Home\mostLiked.cshtml" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <None Include="Properties\PublishProfiles\Direct Publish.pubxml" />
     <None Include="Properties\PublishProfiles\File System.pubxml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Views\Home\entry.cshtml" />
+    <None Include="Views\Home\Popular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
