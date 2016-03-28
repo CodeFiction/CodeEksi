@@ -5,7 +5,7 @@
         .constant("apiConfig", {
             "baseUrl": "/v1/eksifeed/",
             "debe": "debe",
-            "popular": "popular",
+            "popular": "populer",
             "detail": "entries",
             "entries": "entries",
             "search": "titles/search",
@@ -143,10 +143,25 @@
             $rootScope.$watch("okay", function (n, o) {
                 storage.write("theme", n);
             });
-            $http.get(apiConfig.baseUrl + apiConfig.debe).success(function (result) {
-                $scope.entries = result.debe_title_models;
+            $scope.currentPage = 1;
+            $scope.titles = [];
+            $http.get(apiConfig.baseUrl + apiConfig.popular).success(function (result) {
+                $scope.titles = result.populer_title_models;
                 setTimeout(window.refreshNumberOfline, 100);
             });
+            var generatePagedUrl = function (title, page) {
+                return apiConfig.baseUrl + apiConfig.popular + "/" + "?page=" + page;
+            };
+            $scope.loadPaging = function () {
+                var next = $scope.currentPage + 1;
+                if (next < $scope.count + 1) {
+                    $scope.currentPage = next;
+                    $http.get(generatePagedUrl($scope.title.id, next)).success(function (result) {
+                        Array.prototype.push.apply($scope.title, result.populer_title_models);
+                        setTimeout(window.refreshNumberOfline, 300);
+                    });
+                }
+            };
         }])
         .controller("homeController", ["$scope", "$http", "$window", "apiConfig", "storage", "$rootScope", function ($scope, $http, $window, apiConfig, storage, $rootScope) {
             $scope.entries = [];
