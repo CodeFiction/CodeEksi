@@ -186,7 +186,7 @@
     <Content Include="Content\fonts\meslolgm-regular.ttf" />
     <Content Include="Content\fonts\meslolgm-regular.woff" />
     <Content Include="Content\fonts\meslolgm-regular.woff2" />
-    <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\loading-bar.js" />
@@ -221,7 +221,7 @@
     <None Include="Properties\PublishProfiles\File System.pubxml" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Views\Home\entry.cshtml" />
-    <None Include="Views\Home\Popular.cshtml" />
+    <Content Include="Views\Home\Popular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
