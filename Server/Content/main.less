@@ -10,11 +10,12 @@
 @legacy-operators: #3D4A5A;
 
 @font-face {
-    font-family: 'Menlo Regular';
+    font-family: 'Menlo';
     font-style: normal;
     font-weight: normal;
-    src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+    src: local('Menlo'), url('fonts/Menlo.ttc') format('ttc');
 }
+
 
 *:focus {
     outline: none;
@@ -31,9 +32,10 @@ html {
     text-shadow: none;
 }
 
-body *{
- 
+body {
+    font: 13px/16px 'Menlo', serif;
 }
+
 body,
 pre {
     margin: 0;
@@ -71,7 +73,7 @@ ul :first-child:before {
     margin-left: -2.5rem;
     width: 1px;
     height: 100%;
-    z-index: -1;
+    z-index: 1;
 } 
 
 
@@ -114,8 +116,7 @@ input {
 }
 
 #sidebar {
-    font: 16px/17px 'Menlo Regular', monospace;
-    letter-spacing: -0.15rem;
+    font: 13px/16px 'Menlo', monospace;
     width: 52px;
     text-align: right;
     position: absolute;
@@ -139,6 +140,13 @@ input {
     }
 }
 
+.btn-expand-paragraph {
+    display: inline-block;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 /*===========================================*/
 /*   Theme: Monokai   
 /*===========================================*/
@@ -156,7 +164,6 @@ input {
 @monokai-sidebar: #8F908A;
 
 body.theme-monokai {
-    font: 14px/17px 'Menlo Regular', monospace;
     background: @monokai-bg;
     span, p, a, div, input {
         background-color: @monokai-bg;
@@ -201,7 +208,6 @@ body.theme-monokai {
 
 
 body.theme-chrome {
-    font: 14px/17px 'Menlo Regular', monospace;
     background: white;
     span, p, a, div, input {
         background-color: white;

@@ -1,8 +1,10 @@
+@legacy-half-blue : #2F4154
+@legacy-yellow: #A17100;
 @font-face {
-  font-family: 'Menlo Regular';
+  font-family: 'Menlo';
   font-style: normal;
   font-weight: normal;
-  src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+  src: local('Menlo'), url('fonts/Menlo.ttc') format('ttc');
 }
 *:focus {
   outline: none;
@@ -15,6 +17,9 @@ html {
 }
 ::selection {
   text-shadow: none;
+}
+body {
+  font: 13px/16px 'Menlo', serif;
 }
 body,
 pre {
@@ -46,7 +51,7 @@ ul :first-child:before {
   margin-left: -2.5rem;
   width: 1px;
   height: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 div.html.snippet-wrapper {
   display: inline;
@@ -83,8 +88,7 @@ input {
   width: 80px;
 }
 #sidebar {
-  font: 16px/17px 'Menlo Regular', monospace;
-  letter-spacing: -0.15rem;
+  font: 13px/16px 'Menlo', monospace;
   width: 52px;
   text-align: right;
   position: absolute;
@@ -105,11 +109,16 @@ input {
 #theme-menu.open {
   display: inline;
 }
+.btn-expand-paragraph {
+  display: inline-block;
+}
+.btn-expand-paragraph:hover {
+  text-decoration: underline;
+}
 /*===========================================*/
 /*   Theme: Monokai   
 /*===========================================*/
 body.theme-monokai {
-  font: 14px/17px 'Menlo Regular', monospace;
   background: #272822;
 }
 body.theme-monokai span,
@@ -154,7 +163,6 @@ body.theme-monokai #sidebar {
 /*   Theme: Chrome
 /*===========================================*/
 body.theme-chrome {
-  font: 14px/17px 'Menlo Regular', monospace;
   background: white;
 }
 body.theme-chrome span,
