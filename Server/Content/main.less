@@ -9,13 +9,19 @@
 @legacy-parenthesis: #6C7A8D;
 @legacy-operators: #3D4A5A;
 
-@font-face {
-    font-family: 'Menlo';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Menlo'), url('fonts/Menlo.ttc') format('ttc');
-}
 
+
+
+@font-face {
+    font-family: 'Meslo';
+    src: url('fonts/meslolgm-regular.eot');
+    src: url('fonts/meslolgm-regular.eot?#iefix') format('embedded-opentype'),
+         url('fonts/meslolgm-regular.woff2') format('woff2'),
+         url('fonts/meslolgm-regular.woff') format('woff'),
+         url('fonts/meslolgm-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 *:focus {
     outline: none;
@@ -33,7 +39,7 @@ html {
 }
 
 body {
-    font: 13px/16px 'Menlo', serif;
+    font: 12px/16px 'Meslo', serif;
 }
 
 body,
@@ -116,7 +122,7 @@ input {
 }
 
 #sidebar {
-    font: 13px/16px 'Menlo', monospace;
+    font: 12px/16px 'Meslo', monospace;
     width: 52px;
     text-align: right;
     position: absolute;
