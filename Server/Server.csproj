@@ -182,6 +182,10 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Content\main.less" />
+    <Content Include="Content\fonts\meslolgm-regular.eot" />
+    <Content Include="Content\fonts\meslolgm-regular.ttf" />
+    <Content Include="Content\fonts\meslolgm-regular.woff" />
+    <Content Include="Content\fonts\meslolgm-regular.woff2" />
     <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
