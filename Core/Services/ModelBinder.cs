@@ -169,6 +169,9 @@ namespace Server.Services
                 TModel instance = Activator.CreateInstance<TModel>();
                 PropertyInfo[] propertyInfos = modelType.GetProperties();
 
+                // TODO : @deniz property info'lara neyin nasýl set edilecek Func<>'lar yazýlarak belirlenecek. Propert'nin attribute'üne göre property ve Func<> ikilisi oluþturulup, bu func'lar execute edilecek.
+                // Performans için property info ve func'lar expression'a çevrilip cache'lene bilir, IL emiting yapýlabilir.
+
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
                     var propertyBindAttribute = propertyInfo.GetCustomAttributes<BindAttribute>(false).FirstOrDefault();
@@ -179,15 +182,22 @@ namespace Server.Services
                     }
 
                     string elementValue;
-                    if (propertyBindAttribute.InnerText)
+
+                    IElement selectedElement = string.IsNullOrEmpty(propertyBindAttribute.CssSelector)
+                        ? element
+                        : propertyBindAttribute.ApplySelectorToHtmlDocument
+                            ? htmlDocument.QuerySelector(propertyBindAttribute.CssSelector)
+                            : element.QuerySelector(propertyBindAttribute.CssSelector);
+
+                    if (!string.IsNullOrEmpty(propertyBindAttribute.AttributeName))
                     {
-                        elementValue = string.IsNullOrEmpty(propertyBindAttribute.CssSelector)
-                            ? element.TextContent
-                            : element.QuerySelector(propertyBindAttribute.CssSelector).InnerHtml;
+                        elementValue = selectedElement.Attributes[propertyBindAttribute.AttributeName].Value;
                     }
                     else
                     {
-                        elementValue = element.Attributes[propertyBindAttribute.AttributeName].Value;
+                        elementValue = propertyBindAttribute.ElementValueSelector == ElementValueSelector.InnerText
+                            ? selectedElement.TextContent
+                            : selectedElement.InnerHtml;
                     }
 
                     // TODO : @deniz Type conversion yapmak gerekebilir.

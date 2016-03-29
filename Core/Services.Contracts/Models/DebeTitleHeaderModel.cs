@@ -9,7 +9,7 @@ namespace Services.Contracts.Models
     [Bind("ol.stats.topic-list.partial > li > a")]
     public class DebeTitleHeaderModel
     {
-        [Bind("span", InnerText = true)]
+        [Bind("span", ElementValueSelector = ElementValueSelector.InnerText)]
         [DataMember(Name = "title")]
         public string Title { get; set; }
 

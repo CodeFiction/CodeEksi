@@ -3,11 +3,12 @@ using Services.Contracts.Binding;
 
 namespace Services.Contracts.Models
 {
+    // TODO : @deniz tutarlılık açısından Class'lar için ayrı, property'ler için ayrı attribute olmalı.
     [Bind("a.suggested-title")]
     [DataContract]
     public class SuggestedTitleModel
     {
-        [Bind(null, InnerText = true)]
+        [Bind(null, ElementValueSelector = ElementValueSelector.InnerText)]
         [DataMember(Name = "title")]
         public string Title { get; set; }
 

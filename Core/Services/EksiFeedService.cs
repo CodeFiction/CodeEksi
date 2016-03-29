@@ -94,6 +94,7 @@ namespace Server.Services
                     .Binder()
                     .BindModelHtmlContent<PopulerModel>(htmlContent).FirstOrDefault();
 
+                // Pager ilk sayfada gelmiyor. 2. sayfadan itibaren geliyor.
                 populerModel = populerModel ?? new PopulerModel() { CurrentPage = "1", PageCount = "2" };
 
                 populerModel.PopulerTitleHeaderModels = populerTitleHeaderModels;
@@ -107,11 +108,9 @@ namespace Server.Services
             IEnumerable<EntryDetailModel> entryDetailModels = await _bindingComponent
             .Binder()
             .WithUrl($"https://eksisozluk.com/entry/{entryId}")
-            //.WithCssSelectorParameter(new KeyValuePair<string, string>("entryId", entryId))
-            .BindModel<EntryDetailModel>();
+            .BindModel<EntryDetailModel>(c => c.Content = c.Content.FixLinks());
 
             var result = entryDetailModels.FirstOrDefault();
-            result.Content = result.Content.FixLinks();
             return result;
         }
 
@@ -218,7 +217,7 @@ namespace Server.Services
             });
         }
 
-        // TOOD : @deniz bu yapı Binding yapısına taşınacak.
+        // TODO : @deniz bu yapı Binding yapısına taşınacak.
         private async Task<TModel> BindHttpRequestMessage<TModel>(HttpRequestMessage httpRequestMessage, Func<string, TModel> func)
         {
             Uri uri = httpRequestMessage.RequestUri;

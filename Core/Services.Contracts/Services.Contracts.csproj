@@ -44,6 +44,7 @@
     <Compile Include="Binding\BindAttribute.cs" />
     <Compile Include="Binding\BindingSource.cs" />
     <Compile Include="Binding\BindModelAttribute.cs" />
+    <Compile Include="Binding\Enums.cs" />
     <Compile Include="Exceptions\BindAttributeNotFoundException.cs" />
     <Compile Include="Exceptions\CssSelectorNotFoundException.cs" />
     <Compile Include="Exceptions\GenericHttpException.cs" />
