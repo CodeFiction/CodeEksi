@@ -222,6 +222,7 @@
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Views\Home\entry.cshtml" />
     <Content Include="Views\Home\Popular.cshtml" />
+    <Content Include="Views\Home\about.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

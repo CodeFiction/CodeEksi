@@ -40,6 +40,10 @@
                 templateUrl: "home/entry",
                 controller: "entryController"
             })
+            .when("/about", {
+                templateUrl: "home/about",
+                controller: "aboutController"
+            })
             .otherwise({
                 redirectTo: "/"
             });
@@ -162,6 +166,9 @@
                     });
                 }
             };
+        }])
+        .controller('aboutController', ["$scope", function ($scope) {
+
         }])
         .controller("homeController", ["$scope", "$http", "$window", "apiConfig", "storage", "$rootScope", function ($scope, $http, $window, apiConfig, storage, $rootScope) {
             $scope.entries = [];

@@ -28,5 +28,10 @@ namespace Server.Controllers
         {
             return View();
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
