@@ -42,11 +42,11 @@ namespace Server.Services.Helpers
 
                     return mapNodesToModel(nodes);
 
-                    //IList<PopulerTitleModel> titleModels = new List<PopulerTitleModel>();
+                    //IList<PopulerTitleHeaderModel> titleModels = new List<PopulerTitleHeaderModel>();
 
                     //foreach (HtmlNode titleNode in titleNodes)
                     //{
-                    //    PopulerTitleModel titleModel = new PopulerTitleModel();
+                    //    PopulerTitleHeaderModel titleModel = new PopulerTitleHeaderModel();
 
                     //    HtmlNode aElement = titleNode.SelectNodes("a")[0];
                     //    string link = aElement.Attributes["href"].Value;

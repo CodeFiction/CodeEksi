@@ -7,9 +7,9 @@ namespace Services.Contracts.Models
 {
     [DataContract]
     [Bind("ol.stats.topic-list.partial > li > a")]
-    public class DebeTitleModel
+    public class DebeTitleHeaderModel
     {
-        [Bind("span", InnerText = true)]
+        [Bind("span", ElementValueSelector = ElementValueSelector.InnerText)]
         [DataMember(Name = "title")]
         public string Title { get; set; }
 
@@ -19,5 +19,8 @@ namespace Services.Contracts.Models
 
         [DataMember(Name = "entry_id")]
         public string EntryId { get; set; }
+
+        [DataMember(Name = "debe_entry_detail_model")]
+        public EntryDetailModel DebeEntryDetailModel { get; set; }
     }
 }

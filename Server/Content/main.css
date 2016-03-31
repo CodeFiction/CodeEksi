@@ -1,10 +1,14 @@
 @legacy-half-blue : #2F4154
 @legacy-yellow: #A17100;
 @font-face {
-  font-family: 'Menlo Regular';
-  font-style: normal;
+  font-family: 'Meslo';
+  src: url('fonts/meslolgm-regular.eot');
+  src: url('fonts/meslolgm-regular.eot?#iefix') format('embedded-opentype'), url('fonts/meslolgm-regular.woff2') format('woff2'), url('fonts/meslolgm-regular.woff') format('woff'), url('fonts/meslolgm-regular.ttf') format('truetype');
   font-weight: normal;
-  src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+  font-style: normal;
+}
+*:focus {
+  outline: none;
 }
 html {
   color: #f8f8f2;
@@ -15,9 +19,8 @@ html {
 ::selection {
   text-shadow: none;
 }
-.hidden {
-  display: none !important;
-  visibility: hidden;
+body {
+  font: 12px/16px 'Meslo', serif;
 }
 body,
 pre {
@@ -27,12 +30,40 @@ pre {
   padding: 0;
 }
 ul {
+  position: relative;
+}
+p {
+  display: inline;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+ul {
+  position: relative;
+  margin: 0;
   list-style: none;
+  padding-left: 2rem;
+}
+ul :first-child:before {
+  content: "";
+  display: inline;
+  position: absolute;
+  margin-left: -2.5rem;
+  width: 1px;
+  height: 100%;
+  z-index: 1;
+}
+div.html.snippet-wrapper {
+  display: inline;
 }
 a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+span {
+  padding: 0;
 }
 a:hover {
   text-decoration: underline;
@@ -49,12 +80,54 @@ a.snippet-wrapper:active .highlighted,
 a.snippet-wrapper:hover .highlighted {
   text-decoration: underline;
 }
+header,
+main {
+  margin-left: 32px;
+}
+input {
+  border: none;
+  width: 80px;
+}
+#sidebar {
+  font: 12px/16px 'Meslo', monospace;
+  width: 52px;
+  text-align: right;
+  position: absolute;
+}
+#sidebar ul {
+  padding: 0;
+  margin: 0 15px 0 0;
+}
+#sidebar ul li {
+  margin-top: 0.05rem;
+}
+.shuffleme {
+  display: inline;
+}
+#theme-menu {
+  display: none;
+}
+#theme-menu.open {
+  display: inline;
+}
+.btn-expand-paragraph {
+  display: inline-block;
+}
+.btn-expand-paragraph:hover {
+  text-decoration: underline;
+}
 /*===========================================*/
 /*   Theme: Monokai   
 /*===========================================*/
 body.theme-monokai {
-  font: 14px/18px 'Menlo Regular', monospace;
   background: #272822;
+}
+body.theme-monokai span,
+body.theme-monokai p,
+body.theme-monokai a,
+body.theme-monokai div,
+body.theme-monokai input {
+  background-color: #272822;
 }
 body.theme-monokai ::selection {
   background: #999;
@@ -80,4 +153,52 @@ body.theme-monokai .html-comment {
 }
 body.theme-monokai .html-paragraph {
   color: #f8f8f2;
+}
+body.theme-monokai ul ul li:first-child:before {
+  background-color: #363731;
+}
+body.theme-monokai #sidebar {
+  color: #8F908A;
+}
+/*===========================================*/
+/*   Theme: Chrome
+/*===========================================*/
+body.theme-chrome {
+  background: white;
+}
+body.theme-chrome span,
+body.theme-chrome p,
+body.theme-chrome a,
+body.theme-chrome div,
+body.theme-chrome input {
+  background-color: white;
+  padding: 1px 0;
+}
+body.theme-chrome ::selection {
+  background: #B0D6FF;
+}
+body.theme-chrome .html-symbol {
+  color: #890482;
+}
+body.theme-chrome .html-tag {
+  color: #890482;
+  font-weight: 700;
+}
+body.theme-chrome .html-data {
+  color: #9B4500;
+}
+body.theme-chrome .html-string {
+  color: #180BA9;
+}
+body.theme-chrome .html-comment {
+  color: #1F6F20;
+}
+body.theme-chrome .html-paragraph {
+  color: #000000;
+}
+body.theme-chrome ul ul li:first-child:before {
+  background-color: #E7E7E7;
+}
+body.theme-chrome #sidebar {
+  color: #ddd;
 }

@@ -1,0 +1,240 @@
+@legacy-bg: #0D1014;
+@legacy-comment: #1D2732;
+@legacy-dark-blue: #144F72;
+@legacy-white: #A0A0A0;
+@legacy-light-blue:#6D798D;
+@legacy-half-blue: #2F4154
+@legacy-yellow: #A17100;
+@legacy-red: #A22700;
+@legacy-parenthesis: #6C7A8D;
+@legacy-operators: #3D4A5A;
+
+@font-face {
+    font-family: 'Menlo Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Menlo Regular'), url('/fonts/Menlo-Regular.woff') format('woff');
+}
+
+*:focus {
+    outline: none;
+}
+
+html {
+    color: @monokai-white;
+    font-size: 1em;
+    line-height: 1.4;
+    font-family: monospace; 
+}
+
+::selection {
+    text-shadow: none;
+}
+
+body *{
+ 
+}
+body,
+pre {
+    margin: 0;
+}
+
+pre {
+    padding: 0
+}
+
+ul {
+    position: relative;
+}
+
+p {
+    display: inline;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+
+}
+
+ul  {
+    position: relative;
+    margin: 0;
+    list-style: none;
+    padding-left: 2rem;
+    //position: absolute;
+}
+
+ul :first-child:before {
+    content: "";
+    display: inline;
+    position: absolute;
+    margin-left: -2.5rem;
+    width: 1px;
+    height: 100%;
+    z-index: -1;
+} 
+
+
+
+div.html.snippet-wrapper {
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+span {
+    padding: 0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.snippet-wrapper:focus,
+a.snippet-wrapper:visited,
+a.snippet-wrapper:active,
+a.snippet-wrapper:hover {
+    text-decoration: none;
+    .highlighted {
+        text-decoration: underline;
+    }
+}
+
+header, main {
+    margin-left: 32px;
+}
+
+input {
+    border: none;
+    width: 80px;
+}
+
+#sidebar {
+    font: 16px/17px 'Menlo Regular', monospace;
+    letter-spacing: -0.15rem;
+    width: 52px;
+    text-align: right;
+    position: absolute;
+    ul {
+        padding: 0;
+        margin: 0 15px 0 0;
+        li {
+            margin-top: 0.05rem;
+        }
+    }
+}
+
+.shuffleme {
+  display: inline;
+}
+
+#theme-menu {
+    display: none;
+    &.open {
+        display: inline;
+    }
+}
+
+/*===========================================*/
+/*   Theme: Monokai   
+/*===========================================*/
+
+@monokai-bg: #272822;
+@monokai-pink: #fc1e6d;
+@monokai-yellow: #e6dd64;
+@monokai-grey: #75715c;
+@monokai-green: #a2e600;
+@monokai-blue: #50d0ed;
+@monokai-white: #f8f8f2;
+@monokai-orange: #ff9900;
+@monokai-purple: #b079f8;
+@monokai-lines: #363731;
+@monokai-sidebar: #8F908A;
+
+body.theme-monokai {
+    font: 14px/17px 'Menlo Regular', monospace;
+    background: @monokai-bg;
+    span, p, a, div, input {
+        background-color: @monokai-bg;
+
+    }
+    ::selection {
+        background: #999; 
+    }
+    .html-symbol {
+        color: @monokai-white;
+    }
+    .html-tag {
+        color: @monokai-pink;
+        font-weight: 700;
+    }
+    .html-data {
+        color: @monokai-green;
+    }
+    .html-string {
+        color: @monokai-yellow;
+    }
+    .html-content {
+        color: @monokai-white;
+    }
+    .html-comment {
+        color: @monokai-grey;
+    }
+    .html-paragraph {
+        color: @monokai-white
+    }
+    ul ul li:first-child:before {
+        background-color: @monokai-lines;
+    }
+    #sidebar {
+        color: @monokai-sidebar;
+    }
+}
+
+/*===========================================*/
+/*   Theme: Chrome
+/*===========================================*/
+
+
+body.theme-chrome {
+    font: 14px/17px 'Menlo Regular', monospace;
+    background: white;
+    span, p, a, div, input {
+        background-color: white;
+        padding: 1px 0;
+    }
+    ::selection {
+        background: #B0D6FF; 
+    }
+    .html-symbol {
+        color: #890482;
+    }
+    .html-tag {
+        color: #890482;
+        font-weight: 700;
+    }
+    .html-data {
+        color: #9B4500;
+    }
+    .html-string {
+        color: #180BA9;
+    }
+    .html-comment {
+        color: #1F6F20;
+    }
+    .html-paragraph {
+        color: #000000;
+    }
+    ul ul li:first-child:before {
+        background-color: #E7E7E7;
+    }
+    #sidebar {
+        color: #ddd;
+    }
+}
+
+

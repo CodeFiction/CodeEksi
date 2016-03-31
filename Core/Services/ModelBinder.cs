@@ -1,31 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Dom.Html;
 using AngleSharp.Network;
-using AngleSharp.Network.Default;
+using Server.Services.Helpers;
 using Services.Contracts;
 using Services.Contracts.Binding;
+using Services.Contracts.Exceptions;
+using HtmlParser = AngleSharp.Parser.Html.HtmlParser;
+using HttpMethod = System.Net.Http.HttpMethod;
 
 namespace Server.Services
 {
     public class ModelBinder : IModelBinder
     {
         public string RequestUrl { get; private set; }
-        public bool AddRandomQueryString { get; private set; }
         public IReadOnlyDictionary<string, string> HeaderValues { get; private set; }
         public IReadOnlyDictionary<string, string> CssSelectorParameters { get; private set; }
+        public IReadOnlyDictionary<string, string> QueryStringParameters { get; private set; }
 
         public ModelBinder()
         {
             // TODO : @deniz null check yapmamak için kötü bir yönrem saat 01:42 . Mazur görelim
             HeaderValues = new Dictionary<string, string>();
             CssSelectorParameters = new Dictionary<string, string>();
+            QueryStringParameters = new Dictionary<string, string>();
         }
 
         public IWith WithUrl(string url)
@@ -35,23 +41,26 @@ namespace Server.Services
             return this;
         }
 
-        public IWith WithRandomQueryString()
+        public IWith WithQueryString(params KeyValuePair<string, string>[] queryStringParameters)
         {
-            AddRandomQueryString = true;
+            QueryStringParameters = queryStringParameters.ToDictionary(keyValuePair => keyValuePair.Key,
+                keyValuePair => keyValuePair.Value);
 
             return this;
         }
 
         public IWith WithHeader(params KeyValuePair<string, string>[] headerValues)
         {
-            HeaderValues = headerValues.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+            HeaderValues = headerValues.ToDictionary(keyValuePair => keyValuePair.Key,
+                keyValuePair => keyValuePair.Value);
 
             return this;
         }
 
         public IWith WithCssSelectorParameter(params KeyValuePair<string, string>[] cssSelectorParameters)
         {
-            CssSelectorParameters = cssSelectorParameters.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value);
+            CssSelectorParameters = cssSelectorParameters.ToDictionary(keyValuePair => keyValuePair.Key,
+                keyValuePair => keyValuePair.Value);
 
             return this;
         }
@@ -60,20 +69,89 @@ namespace Server.Services
         public async Task<IEnumerable<TModel>> BindModel<TModel>(Action<TModel> postBindAction = null)
             where TModel : class, new()
         {
-            string random = AddRandomQueryString ? DateTime.Now.Ticks.ToString() : string.Empty;
-            string url = $"{RequestUrl}{random}";
+            // TODO : Burayý ayrý bir class'a taþýmak lazým
 
+            Uri uri = new Uri(RequestUrl);
+
+            uri = QueryStringParameters.Aggregate(uri,
+                (current, queryStringParameter) =>
+                    current.AddParameter(queryStringParameter.Key, queryStringParameter.Value));
+
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = uri,
+                Method = HttpMethod.Get,
+            };
+
+            foreach (KeyValuePair<string, string> keyValuePair in HeaderValues)
+            {
+                request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+
+            IHtmlDocument htmlDocument;
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                using (HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request))
+                {
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new NotFoundException(RequestUrl);
+                    }
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.InternalServerError)
+                    {
+                        throw new InternalServerErrorException(RequestUrl);
+                    }
+                    if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new GenericHttpException(httpResponseMessage.StatusCode, RequestUrl);
+                    }
+
+                    Stream stream = await httpResponseMessage.Content.ReadAsStreamAsync();
+
+                    return BindModelWithStream(stream, postBindAction);
+                }
+            }
+        }
+
+        public IEnumerable<TModel> BindModelHtmlContent<TModel>(string htmlContent, Action<TModel> postBindAction = null)
+            where TModel : class, new()
+        {
+            HtmlParser htmlParser = new HtmlParser();
+            IHtmlDocument htmlDocument = htmlParser.Parse(htmlContent);
+
+            return BindModelWithHtmlDocument(htmlDocument, postBindAction);
+        }
+
+        public IEnumerable<TModel> BindModelWithStream<TModel>(Stream stream, Action<TModel> postBindAction = null)
+            where TModel : class, new()
+        {
+            HtmlParser htmlParser = new HtmlParser();
+            IHtmlDocument htmlDocument = htmlParser.Parse(stream);
+
+            return BindModelWithHtmlDocument<TModel>(htmlDocument, postBindAction);
+        }
+
+        private IEnumerable<TModel> BindModelWithHtmlDocument<TModel>(IHtmlDocument htmlDocument, Action<TModel> postBindAction = null)
+            where TModel : class, new()
+        {
             Type modelType = typeof (TModel);
 
             BindAttribute bindAttribute = modelType.GetCustomAttributes<BindAttribute>(false).FirstOrDefault();
 
             if (bindAttribute == null)
             {
-                // throw Exception
+                throw new BindAttributeNotFoundException($"BindAttribute not found for model {modelType.FullName}");
             }
 
             // TODO : @deniz bunu genel bir yere taþýmak lazým. Birden fazla parametre olan durumlarda olucak
             string cssSelector = bindAttribute.CssSelector;
+
+            if (string.IsNullOrEmpty(cssSelector))
+            {
+                throw new CssSelectorNotFoundException($"BindAttribute not found for model {modelType.FullName}");
+            }
+
             if (CssSelectorParameters.Any(pair => cssSelector.Contains($"{{{pair.Key}}}")))
             {
                 string key = Regex.Match(cssSelector, @"\{([^}]*)\}").Groups[1].ToString();
@@ -82,28 +160,7 @@ namespace Server.Services
                 cssSelector = cssSelector.Replace($"{{{key}}}", value);
             }
 
-            if (string.IsNullOrEmpty(cssSelector))
-            {
-                // throw Exception
-            }
-
-            HttpRequester httpRequester = new HttpRequester();
-            Request request = new Request();
-
-            foreach (KeyValuePair<string, string> keyValuePair in HeaderValues)
-            {
-                request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-            }
-            request.Address = Url.Create(url);
-
-
-            IResponse response = await httpRequester.RequestAsync(request, CancellationToken.None);
-
-            // Response'a göre iþlem yapmak lazým
-
-            IDocument document = await BrowsingContext.New().OpenAsync(response, CancellationToken.None);
-
-            IHtmlCollection<IElement> querySelectorAll = document.QuerySelectorAll(cssSelector);
+            IHtmlCollection<IElement> querySelectorAll = htmlDocument.QuerySelectorAll(cssSelector);
 
             List<TModel> models = new List<TModel>();
 
@@ -111,6 +168,9 @@ namespace Server.Services
             {
                 TModel instance = Activator.CreateInstance<TModel>();
                 PropertyInfo[] propertyInfos = modelType.GetProperties();
+
+                // TODO : @deniz property info'lara neyin nasýl set edilecek Func<>'lar yazýlarak belirlenecek. Propert'nin attribute'üne göre property ve Func<> ikilisi oluþturulup, bu func'lar execute edilecek.
+                // Performans için property info ve func'lar expression'a çevrilip cache'lene bilir, IL emiting yapýlabilir.
 
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
@@ -122,18 +182,25 @@ namespace Server.Services
                     }
 
                     string elementValue;
-                    if (propertyBindAttribute.InnerText)
+
+                    IElement selectedElement = string.IsNullOrEmpty(propertyBindAttribute.CssSelector)
+                        ? element
+                        : propertyBindAttribute.ApplySelectorToHtmlDocument
+                            ? htmlDocument.QuerySelector(propertyBindAttribute.CssSelector)
+                            : element.QuerySelector(propertyBindAttribute.CssSelector);
+
+                    if (!string.IsNullOrEmpty(propertyBindAttribute.AttributeName))
                     {
-                        elementValue = string.IsNullOrEmpty(propertyBindAttribute.CssSelector) 
-                            ? element.TextContent 
-                            : element.QuerySelector(propertyBindAttribute.CssSelector).TextContent;
+                        elementValue = selectedElement.Attributes[propertyBindAttribute.AttributeName].Value;
                     }
                     else
                     {
-                        elementValue = element.Attributes[propertyBindAttribute.AttributeName].Value;
+                        elementValue = propertyBindAttribute.ElementValueSelector == ElementValueSelector.InnerText
+                            ? selectedElement.TextContent
+                            : selectedElement.InnerHtml;
                     }
 
-                    // Type conversion yapmak gerekebilir.
+                    // TODO : @deniz Type conversion yapmak gerekebilir.
                     propertyInfo.SetValue(instance, elementValue);
                 }
 

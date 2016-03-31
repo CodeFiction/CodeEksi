@@ -2,6 +2,6 @@
 {
     public interface IBindingComponent
     {
-        IModelBinder Bind();
+        IModelBinder Binder();
     }
 }

@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+<ul>
+    <li>
+        <span class="html-comment">&lt;!-- Hot topics --&gt;</span>
+    </li>
+</ul>
+<a class="html snippet-wrapper" href="#/title/{{title.title}}" ng-repeat="title in titles">
+    <ul>
+        <li class="topic-entry">
+            <span class="html-symbol">&lt;</span><span class="html-tag">section</span>
+            <span class="html-data"> title</span><span class="html-symbol">=</span><span class="html-string highlighted">"{{title.title}}"</span>
+            <span class="html-data"> count</span><span class="html-symbol">=</span><span class="html-string">"{{title.entry_count}}"</span><span class="html-symbol">&gt;</span>
+        </li>
+        <li>
+            <span class="html-comment">&lt;!-- Click for details --&gt;</span>
+        </li>
+        <li>
+            <span class="html-symbol">&lt;/</span><span class="html-tag">section</span><span class="html-symbol">&gt;</span>
+        </li>
+    </ul>
+</a>

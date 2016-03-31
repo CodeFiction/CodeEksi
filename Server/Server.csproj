@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\ExceptionHandlingFilterAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -155,10 +156,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="NotFoundWithContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\loading-bar.css" />
+    <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\normalize.css" />
     <Content Include="Content\normalize.min.css" />
@@ -166,22 +170,36 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="lib\app.js" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Content\main.less" />
-    <None Include="Properties\PublishProfiles\codesozluk %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\codesozluk.pubxml" />
+    <Content Include="Content\fonts\meslolgm-regular.eot" />
+    <Content Include="Content\fonts\meslolgm-regular.ttf" />
+    <Content Include="Content\fonts\meslolgm-regular.woff" />
+    <Content Include="Content\fonts\meslolgm-regular.woff2" />
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
+    <Content Include="Scripts\jquery-2.2.1.js" />
+    <Content Include="Scripts\jquery-2.2.1.min.js" />
+    <Content Include="Scripts\loading-bar.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ng-infinite-scroll.js" />
+    <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\shufflecode.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -195,10 +213,19 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\detail.cshtml" />
+    <Content Include="Views\Home\mostLiked.cshtml" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <None Include="Properties\PublishProfiles\Direct Publish.pubxml" />
+    <None Include="Properties\PublishProfiles\File System.pubxml" />
+    <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="Views\Home\entry.cshtml" />
+    <Content Include="Views\Home\Popular.cshtml" />
+    <Content Include="Views\Home\about.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

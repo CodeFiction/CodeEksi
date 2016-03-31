@@ -5,9 +5,9 @@ namespace Services.Contracts.Models
 {
     [DataContract]
     [Bind("ul.topic-list.partial > li > a")]
-    public class PopulerTitleModel
+    public class PopulerTitleHeaderModel
     {
-        [Bind(null, InnerText = true)]
+        [Bind(null, ElementValueSelector = ElementValueSelector.InnerText)]
         [DataMember(Name = "title")]
         public string Title { get; set; }
 
@@ -15,7 +15,7 @@ namespace Services.Contracts.Models
         [DataMember(Name = "link")]
         public string Link { get; set; }
 
-        [Bind("small", InnerText = true)]
+        [Bind("small", ElementValueSelector = ElementValueSelector.InnerText)]
         [DataMember(Name = "entry_count")]
         public string EntryCount { get; set; }
     }

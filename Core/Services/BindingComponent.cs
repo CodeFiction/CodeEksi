@@ -14,7 +14,7 @@ namespace Server.Services
             _modelBinderFactory = modelBinderFactory;
         }
 
-        public IModelBinder Bind()
+        public IModelBinder Binder()
         {
             IModelBinder modelBinderFactory = _modelBinderFactory();
 
