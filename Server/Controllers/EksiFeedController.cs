@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using GoogleAnalyticsTracker.WebAPI2;
 using Server.ActionFilters;
 using Services.Contracts;
 using Services.Contracts.Models;
@@ -14,6 +15,7 @@ namespace Server.Controllers
      SwaggerResponse(HttpStatusCode.InternalServerError, Type = typeof (ErrorModel)),
      SwaggerResponse(HttpStatusCode.BadRequest, Type = typeof(ErrorModel))]
     [RoutePrefix("v1/eksifeed")]
+    [ActionTracking("UA-74988484-1", "www.codeeksi.com")]
     public class EksiFeedController : ApiController
     {
         private readonly IEksiFeedService _eksiFeedService;
